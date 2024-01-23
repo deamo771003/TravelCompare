@@ -1,5 +1,5 @@
 import { sequelize } from "./sequelize"
-import { User } from './models/User'
+import { User } from './models/user'
 
 export async function initializeDatabase() {
   try {

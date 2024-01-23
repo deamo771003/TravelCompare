@@ -13,5 +13,4 @@ export class User extends Model {
     allowNull: false
   })
   password: string = "";
-
 }

@@ -5,10 +5,11 @@
 // swagger
 // CI/CD
 // kubernetes
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 import express, { Request, Response } from 'express'
 import { initializeDatabase } from './db/initializeDatabase'
-
 
 const app = express()
 const port = process.env.PORT || 3000

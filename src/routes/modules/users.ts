@@ -1,8 +1,7 @@
 import express from 'express'
-import users from './modules/users'
 
 const router = express.Router()
 
-router.use('/users', users)
+router.post('/signup'.userController.singup)
 
 export default router

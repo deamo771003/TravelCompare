@@ -1,16 +1,23 @@
 {
   "compilerOptions" : {
     "outDir": "./dist",
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "module": "CommonJS",
     "target": "ES6",
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./",
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    },
   },
   "include": [
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules", "**/*.spec.ts"
   ]
 }

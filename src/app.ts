@@ -9,7 +9,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 import express, { Request, Response } from 'express'
-import { initializeDatabase } from './db/initializeDatabase'
+import { initializeDatabase } from './db/models/index'
 
 const app = express()
 const port = process.env.PORT || 3000

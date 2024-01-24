@@ -17,7 +17,7 @@ const config = {
         port: Number(process.env.DB_PORT) || 1433,
         seederStorage: "sequelize",
         seederStorageTableName: "sequelize_seed",
-        seederStoragePath: "dist/db/seeders",
+        seederStoragePath: 'dist/db/seeders',
     },
 };
 module.exports = config;

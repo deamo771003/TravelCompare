@@ -6,11 +6,11 @@ export class User extends Model {
     type: DataType.STRING,
     allowNull: false
   })
-  username: string = "";
+  username!: string;
 
   @Column({
     type: DataType.STRING,
     allowNull: false
   })
-  password: string = "";
+  password!: string;
 }

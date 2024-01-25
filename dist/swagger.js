@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const port = process.env.PORT || 3000;
+const url = process.env.URL || `http://localhost:${port}`;
 const options = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -14,7 +16,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3000',
+                url: url,
                 description: 'Local server',
             },
         ],

@@ -1,8 +1,4 @@
-// MSSQL
-// 製作API
 // 部署GCP
-// postman
-// swagger
 // CI/CD
 // kubernetes
 if (process.env.NODE_ENV !== 'production') {
@@ -11,14 +7,17 @@ if (process.env.NODE_ENV !== 'production') {
 import express, { Request, Response } from 'express'
 import { initializeDatabase } from './db/models/index'
 import routes from './routes'
-import swaggerUi from 'swagger-ui-express';
-import swaggerSpec from './swagger';
+import swaggerUi from 'swagger-ui-express'
+import swaggerSpec from './swagger'
+import cors from 'cors'
 
 const app = express()
 const port = process.env.PORT || 3000
 
 // Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+app.use(cors())
 
 initializeDatabase()
 

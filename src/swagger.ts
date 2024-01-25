@@ -1,4 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+const port = process.env.PORT || 3000
+const url = process.env.URL || `http://localhost:${port}`
 
 const options = {
   swaggerDefinition: {
@@ -10,7 +12,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: url,
         description: 'Local server',
       },
     ],

@@ -1,0 +1,21 @@
+runtime: nodejs18
+env: standard
+
+automatic_scaling:
+  max_instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  NODE_ENV: "production"
+  GCP_PROJECT_ID: "travelcompare-412314"
+
+beta_settings:
+  cloud_sql_instances: travelcompare-412314:asia-east1:travel-compare-db

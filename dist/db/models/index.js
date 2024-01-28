@@ -23,25 +23,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sequelize = exports.initializeDatabase = void 0;
+exports.initializeDatabase = exports.sequelize = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const user_1 = require("./user");
-const config = require("../../config/config");
-const env = process.env.NODE_ENV || 'development';
-const dbConfig = config[env];
-const sequelize = new sequelize_typescript_1.Sequelize(Object.assign(Object.assign({}, dbConfig), { dialect: "mssql", models: [user_1.User], dialectOptions: {
-        options: {
-            encrypt: true, // 使用 Azure SQL 時需要
-            trustServerCertificate: true // 自簽名證書時需要
-        }
-    } }));
-exports.sequelize = sequelize;
+const config_1 = require("../../config/config");
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
+        const env = process.env.NODE_ENV || 'development';
+        const config = yield (0, config_1.getConfig)();
+        const dbConfig = config[env];
+        exports.sequelize = new sequelize_typescript_1.Sequelize(Object.assign(Object.assign({}, dbConfig), { dialect: "mssql", models: [user_1.User], dialectOptions: {
+                options: {
+                    encrypt: true,
+                    trustServerCertificate: true
+                }
+            } }));
         try {
-            yield sequelize.authenticate();
+            yield exports.sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
+            yield exports.sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
             console.log('Table created successfully.');
         }
         catch (error) {

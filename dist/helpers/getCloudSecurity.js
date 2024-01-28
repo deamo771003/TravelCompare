@@ -9,21 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initializeDatabase = void 0;
-const sequelize_1 = require("./sequelize");
-const User_1 = require("./models/User");
-function initializeDatabase() {
+exports.getSecret = void 0;
+const secret_manager_1 = require("@google-cloud/secret-manager");
+const client = new secret_manager_1.SecretManagerServiceClient();
+const GCP_PROJECT_ID = process.env.GCP_PROJECT_ID;
+function getSecret(secretName) {
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield sequelize_1.sequelize.authenticate();
-            console.log('Connection has been established successfully.');
-            sequelize_1.sequelize.addModels([User_1.User]); // 添加所有模型
-            yield sequelize_1.sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
-            console.log('Table created successfully.');
+        const [version] = yield client.accessSecretVersion({
+            name: `projects/${GCP_PROJECT_ID}/secrets/${secretName}/versions/latest`,
+        });
+        // 確保 payload 和 data 不為 null
+        if (!((_a = version.payload) === null || _a === void 0 ? void 0 : _a.data)) {
+            throw new Error('No payload data returned from secret manager.');
         }
-        catch (error) {
-            console.error('Unable to connect to the database:', error);
-        }
+        return version.payload.data.toString('utf8');
     });
 }
-exports.initializeDatabase = initializeDatabase;
+exports.getSecret = getSecret;

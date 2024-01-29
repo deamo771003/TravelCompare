@@ -35,8 +35,8 @@ function initializeDatabase() {
         exports.sequelize = new sequelize_typescript_1.Sequelize(Object.assign(Object.assign({}, dbConfig), { dialect: "mssql", models: [user_1.User], dialectOptions: {
                 socketPath: process.env.INSTANCE_CONNECTION_NAME,
                 options: {
-                    encrypt: true,
-                    trustServerCertificate: true
+                    // encrypt: true,
+                    trustServerCertificate: false
                 }
             } }));
         try {

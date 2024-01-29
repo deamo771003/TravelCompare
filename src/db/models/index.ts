@@ -16,8 +16,8 @@ export async function initializeDatabase() {
     dialectOptions: {
       socketPath: process.env.INSTANCE_CONNECTION_NAME,
       options: {
-        encrypt: true,
-        trustServerCertificate: true
+        // encrypt: true,
+        trustServerCertificate: false
       }
     }
   });

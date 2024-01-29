@@ -11,7 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getConfig = void 0;
 require('dotenv').config();
-const getCloudSecurity_1 = require("../helpers/getCloudSecurity");
 function getEnvOrThrow(envVar) {
     const value = process.env[envVar];
     if (!value) {
@@ -34,10 +33,14 @@ function getConfig() {
                 seederStoragePath: 'dist/db/seeders',
             },
             production: {
-                database: yield (0, getCloudSecurity_1.getSecret)('DB_DATABASE'),
-                user: yield (0, getCloudSecurity_1.getSecret)('DB_USERNAME'),
-                password: yield (0, getCloudSecurity_1.getSecret)('DB_PASSWORD'),
-                server: yield (0, getCloudSecurity_1.getSecret)('DB_HOST'),
+                // database: await getSecret('DB_DATABASE'),
+                // user: await getSecret('DB_USERNAME'),
+                // password: await getSecret('DB_PASSWORD'),
+                // server: await getSecret('DB_HOST'),
+                database: getEnvOrThrow('DB_DATABASE'),
+                user: getEnvOrThrow('DB_USERNAME'),
+                password: getEnvOrThrow('DB_PASSWORD'),
+                server: getEnvOrThrow('DB_HOST'),
                 dialect: 'mssql',
                 port: Number(process.env.DB_PORT) || 1433,
                 seederStorage: "sequelize",

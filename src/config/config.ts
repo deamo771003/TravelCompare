@@ -25,9 +25,9 @@ export async function getConfig(): Promise<ConfigKeyAttribute> {
     },
     production: {
       database: await getSecret('DB_DATABASE'),
-      username: await getSecret('DB_USERNAME'),
+      user: await getSecret('DB_USERNAME'),
       password: await getSecret('DB_PASSWORD'),
-      host: await getSecret('DB_HOST'),
+      server: await getSecret('DB_HOST'),
       dialect: 'mssql',
       port: Number(process.env.DB_PORT) || 1433,
       seederStorage: "sequelize",

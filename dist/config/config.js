@@ -35,9 +35,9 @@ function getConfig() {
             },
             production: {
                 database: yield (0, getCloudSecurity_1.getSecret)('DB_DATABASE'),
-                username: yield (0, getCloudSecurity_1.getSecret)('DB_USERNAME'),
+                user: yield (0, getCloudSecurity_1.getSecret)('DB_USERNAME'),
                 password: yield (0, getCloudSecurity_1.getSecret)('DB_PASSWORD'),
-                host: yield (0, getCloudSecurity_1.getSecret)('DB_HOST'),
+                server: yield (0, getCloudSecurity_1.getSecret)('DB_HOST'),
                 dialect: 'mssql',
                 port: Number(process.env.DB_PORT) || 1433,
                 seederStorage: "sequelize",

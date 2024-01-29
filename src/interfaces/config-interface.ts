@@ -1,8 +1,10 @@
 export interface ConfigAttributes {
   database: string;
-  username: string;
+  username?: string;
+  user?: string;
   password: string;
-  host: string;
+  host?: string;
+  server?: string;
   dialect: string;
   port: number;
   seederStorage: string;

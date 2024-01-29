@@ -16,6 +16,7 @@ handlers:
 env_variables:
   NODE_ENV: "production"
   GCP_PROJECT_ID: "travelcompare-412314"
+  INSTANCE_CONNECTION_NAME: "travelcompare-412314:asia-east1:travel-compare-db"
 
 beta_settings:
   cloud_sql_instances: travelcompare-412314:asia-east1:travel-compare-db

@@ -14,7 +14,7 @@ export async function initializeDatabase() {
     dialect: "mssql",
     models: [User],
     dialectOptions: {
-      socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+      socketPath: process.env.INSTANCE_CONNECTION_NAME,
       options: {
         encrypt: true,
         trustServerCertificate: true

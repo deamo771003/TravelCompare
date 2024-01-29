@@ -33,7 +33,7 @@ function initializeDatabase() {
         const config = yield (0, config_1.getConfig)();
         const dbConfig = config[env];
         exports.sequelize = new sequelize_typescript_1.Sequelize(Object.assign(Object.assign({}, dbConfig), { dialect: "mssql", models: [user_1.User], dialectOptions: {
-                socketPath: `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`,
+                socketPath: process.env.INSTANCE_CONNECTION_NAME,
                 options: {
                     encrypt: true,
                     trustServerCertificate: true

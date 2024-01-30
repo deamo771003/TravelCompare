@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { getSecret } from '../helpers/getCloudSecurity'
+// import { getSecret } from '../helpers/getCloudSecurity'
 import { ConfigKeyAttribute } from '../interfaces/config-interface'
 
 function getEnvOrThrow(envVar: string): string {
@@ -7,10 +7,10 @@ function getEnvOrThrow(envVar: string): string {
   if (!value) {
     throw new Error(`${envVar} undefined`)
   }
-  return value;
+  return value as string;
 }
 
-export async function getConfig(): Promise<ConfigKeyAttribute> {
+export function getConfig(): ConfigKeyAttribute {
   return {
     development: {
       database: getEnvOrThrow('DB_DATABASE'),
@@ -28,15 +28,12 @@ export async function getConfig(): Promise<ConfigKeyAttribute> {
       // user: await getSecret('DB_USERNAME'),
       // password: await getSecret('DB_PASSWORD'),
       // server: await getSecret('DB_HOST'),
-      database: getEnvOrThrow('DB_DATABASE'),
-      user: getEnvOrThrow('DB_USERNAME'),
-      password: getEnvOrThrow('DB_PASSWORD'),
-      server: getEnvOrThrow('DB_HOST'),
+      // port: parseInt('1433'),
       dialect: 'mssql',
-      port: 1433,
-      seederStorage: "sequelize",
-      seederStorageTableName: "sequelize_seed",
-      seederStoragePath: 'dist/db/seeders',
+      host: getEnvOrThrow('DB_HOST'),
+      username: getEnvOrThrow('DB_USERNAME'),
+      password: getEnvOrThrow('DB_PASSWORD'),
+      database: getEnvOrThrow('DB_DATABASE')
     }
   }
 }

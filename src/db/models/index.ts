@@ -1,26 +1,22 @@
 import { Sequelize } from 'sequelize-typescript'
 import { User } from './user'
+import _ from 'lodash'
 import { getConfig } from '../../config/config'
 
-export let sequelize: Sequelize;
 
 export async function initializeDatabase() {
   const env = process.env.NODE_ENV || 'development'
   const config = await getConfig()
   const dbConfig = config[env]
-
-  sequelize = new Sequelize({
-    ...dbConfig,
-    dialect: "mssql",
-    models: [User],
-    dialectOptions: {
-      socketPath: process.env.INSTANCE_CONNECTION_NAME,
-      options: {
-        // encrypt: true,
-        trustServerCertificate: false
-      }
+  const sequelize = new Sequelize(
+    dbConfig.database,
+    dbConfig.username,
+    dbConfig.password,
+    {
+      host: dbConfig.host,
+      dialect: dbConfig.dialect,
     }
-  });
+  )
 
   try {
     await sequelize.authenticate()

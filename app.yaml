@@ -19,8 +19,8 @@ beta_settings:
 env_variables:
   NODE_ENV: production
   GCP_PROJECT_ID: travelcompare-412314
-  INSTANCE_CONNECTION_NAME: travelcompare-412314:asia-east1:travel-compare-db
+  DB_HOST: /cloudsql/travelcompare-412314:asia-east1:travel-compare-db
   DB_DATABASE: travel_compare
   DB_USERNAME: sqlserver
   DB_PASSWORD: travelgogo
-  DB_HOST: travelcompare-412314:asia-east1:travel-compare-db
+  URL: https://travelcompare-412314.de.r.appspot.com

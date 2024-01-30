@@ -1,15 +1,13 @@
 export interface ConfigAttributes {
   database: string;
-  username?: string;
-  user?: string;
+  username: string;
   password: string;
-  host?: string;
-  server?: string;
-  dialect: string;
-  port: number;
-  seederStorage: string;
-  seederStorageTableName: string;
-  seederStoragePath: string;
+  host: string;
+  port?: number
+  seederStorage?: string;
+  seederStorageTableName?: string;
+  seederStoragePath?: string;
+  dialect: 'mssql';
 }
 
 export interface ConfigKeyAttribute {

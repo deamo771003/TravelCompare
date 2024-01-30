@@ -23,26 +23,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initializeDatabase = exports.sequelize = void 0;
+exports.initializeDatabase = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const user_1 = require("./user");
 const config_1 = require("../../config/config");
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         const env = process.env.NODE_ENV || 'development';
         const config = yield (0, config_1.getConfig)();
         const dbConfig = config[env];
-        exports.sequelize = new sequelize_typescript_1.Sequelize(Object.assign(Object.assign({}, dbConfig), { dialect: "mssql", models: [user_1.User], dialectOptions: {
-                socketPath: process.env.INSTANCE_CONNECTION_NAME,
-                options: {
-                    // encrypt: true,
-                    trustServerCertificate: false
-                }
-            } }));
+        const sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+            host: dbConfig.host,
+            dialect: dbConfig.dialect,
+        });
         try {
-            yield exports.sequelize.authenticate();
+            yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield exports.sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
+            yield sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
             console.log('Table created successfully.');
         }
         catch (error) {

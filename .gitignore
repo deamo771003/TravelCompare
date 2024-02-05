@@ -20,5 +20,4 @@ coverage/
 .nyc_output/
 
 .env
-GCP-key-travelcompare-412314-31c0647c8589.json
 app.yaml

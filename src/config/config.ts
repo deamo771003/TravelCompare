@@ -1,22 +1,32 @@
 require('dotenv').config()
-// import { getSecret } from '../helpers/getCloudSecurity'
+import { getSecret } from '../helpers/getSecretsManager'
 import { ConfigKeyAttribute } from '../interfaces/config-interface'
 
-function getEnvOrThrow(envVar: string): string {
-  const value = process.env[envVar]
-  if (!value) {
-    throw new Error(`${envVar} undefined`)
+const secretName = 'travelCompareENV'
+
+async function getEnvOrSecret(key: string): Promise<string> {
+  // 首先從環境變量中尋找值
+  const value = process.env[key];
+  if (value) {
+    return value;
   }
-  return value as string;
+  
+  // 如果環境變量中沒有，則從秘密管理員中尋找
+  const secrets = await getSecret(secretName);
+  const secretValue = secrets ? secrets[key] : null;
+  if (!secretValue) {
+    throw new Error(`${key} is undefined in both process.env and AWS Secrets Manager`);
+  }
+  return secretValue;
 }
 
-export function getConfig(): ConfigKeyAttribute {
+export async function getConfig(): Promise<ConfigKeyAttribute> {
   return {
     development: {
-      database: getEnvOrThrow('DB_DATABASE'),
-      username: getEnvOrThrow('DB_USERNAME'),
-      password: getEnvOrThrow('DB_PASSWORD'),
-      host: getEnvOrThrow('DB_HOST'),
+      database: await getEnvOrSecret('DB_DATABASE'),
+      username: await getEnvOrSecret('DB_USERNAME'),
+      password: await getEnvOrSecret('DB_PASSWORD'),
+      host: await getEnvOrSecret('DB_HOST'),
       dialect: 'mssql',
       port: 1433,
       seederStorage: "sequelize",
@@ -24,17 +34,11 @@ export function getConfig(): ConfigKeyAttribute {
       seederStoragePath: 'dist/db/seeders',
     },
     production: {
-      // database: await getSecret('DB_DATABASE'),
-      // user: await getSecret('DB_USERNAME'),
-      // password: await getSecret('DB_PASSWORD'),
-      // server: await getSecret('DB_HOST'),
-      // port: parseInt('1433'),
       dialect: 'mssql',
-      host: getEnvOrThrow('DB_HOST'),
-      username: getEnvOrThrow('DB_USERNAME'),
-      password: getEnvOrThrow('DB_PASSWORD'),
-      database: getEnvOrThrow('DB_DATABASE')
+      host: await getEnvOrSecret('DB_HOST'),
+      username: await getEnvOrSecret('DB_USERNAME'),
+      password: await getEnvOrSecret('DB_PASSWORD'),
+      database: await getEnvOrSecret('DB_DATABASE')
     }
   }
 }
-

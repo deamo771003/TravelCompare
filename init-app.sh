@@ -15,21 +15,15 @@ while ! sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -Q "SELECT 1" ; do
 done
 
 # 檢查Users表是否存在，並修剪輸出
-table_exists=$(sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -d $DB_DATABASE -Q "SET NOCOUNT ON; IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users') SELECT 1 ELSE SELECT 0" -h -1 | tr -d '[:space:]' | grep -E '^[0-9]+$')
-
-# 確保table_exists僅包含數字
-if ! echo "$table_exists" | grep -Eq '^[0-9]+$'; then
-    echo "Failed to check if Users table exists. Received: '$table_exists'"
-    exit 1
-fi
+table_exists=$(sqlcmd -S "$DB_HOST" -d "$DB_DATABASE" -U "$DB_USERNAME" -P "$DB_PASSWORD" -Q "SET NOCOUNT ON; IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = N'Users') BEGIN PRINT '1'; END ELSE BEGIN PRINT '0'; END" -h -1 | tr -d '[:space:]')
 
 # 如果表不存在，執行遷移和種子
-if [ "$table_exists" -eq "1" ]; then
-    echo "Table 'Users' exists."
-else
+if [ "$table_exists" = "0" ]; then
     echo "Table 'Users' does not exist, running migrations and seeds."
     npx sequelize-cli db:migrate
     npx sequelize-cli db:seed:all
+else
+    echo "Table 'Users' exists."
 fi
 
 # 啟動app

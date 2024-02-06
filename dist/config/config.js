@@ -44,11 +44,11 @@ function getConfig() {
                 seederStoragePath: 'dist/db/seeders',
             },
             production: {
-                dialect: 'mssql',
                 host: yield getEnvOrSecret('DB_HOST'),
                 username: yield getEnvOrSecret('DB_USERNAME'),
                 password: yield getEnvOrSecret('DB_PASSWORD'),
-                database: yield getEnvOrSecret('DB_DATABASE')
+                database: yield getEnvOrSecret('DB_DATABASE'),
+                dialect: 'mssql'
             }
         };
     });

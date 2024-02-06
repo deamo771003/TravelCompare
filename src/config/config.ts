@@ -34,11 +34,11 @@ export async function getConfig(): Promise<ConfigKeyAttribute> {
       seederStoragePath: 'dist/db/seeders',
     },
     production: {
-      dialect: 'mssql',
       host: await getEnvOrSecret('DB_HOST'),
       username: await getEnvOrSecret('DB_USERNAME'),
       password: await getEnvOrSecret('DB_PASSWORD'),
-      database: await getEnvOrSecret('DB_DATABASE')
+      database: await getEnvOrSecret('DB_DATABASE'),
+      dialect: 'mssql'
     }
   }
 }

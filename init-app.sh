@@ -15,10 +15,10 @@ while ! sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -Q "SELECT 1" ; do
 done
 
 # 檢查Users表是否存在，並修剪輸出
-table_exists=$(sqlcmd -S $DB_HOST -d $DB_DATABASE -U $DB_USERNAME -P"$DB_PASSWORD" -Q "SET NOCOUNT ON; IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users') SELECT 1 ELSE SELECT 0" -h -1 | tr -d '[:space:]' | grep -E '^[0-9]+$')
+table_exists=$(sqlcmd -S $DB_HOST -d $DB_DATABASE -U $DB_USERNAME -P$DB_PASSWORD -Q "SET NOCOUNT ON; IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users') SELECT 1 ELSE SELECT 0" -h -1 | tr -d '[:space:]' | grep -E '^[0-9]+$')
 
 # 確保table_exists僅包含數字
-if ! [[ $table_exists =~ ^[0-9]+$ ]]; then
+if ! echo "$table_exists" | grep -Eq '^[0-9]+$'; then
     echo "Failed to check if Users table exists. Received: '$table_exists'"
     exit 1
 fi

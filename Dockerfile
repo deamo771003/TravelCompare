@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /usr/src
+WORKDIR /usr/dist
 
 # Copy package files and install dependencies
 COPY package*.json ./

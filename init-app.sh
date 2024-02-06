@@ -3,6 +3,8 @@
 # 檢索秘密值，請替換 "MySecretName" 為您在 AWS Secrets Manager 中設定的秘密名稱
 DB_CREDENTIALS=$(aws secretsmanager get-secret-value --secret-id travelCompareENV --query SecretString --output text)
 
+echo $DB_CREDENTIALS
+
 # 環境變數賦值
 DB_USERNAME=$(echo $DB_CREDENTIALS | jq -r .DB_USERNAME)
 DB_PASSWORD=$(echo $DB_CREDENTIALS | jq -r .DB_PASSWORD)

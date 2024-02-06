@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /usr/dist
+WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json ./
@@ -35,4 +35,4 @@ EXPOSE 3000
 # ENTRYPOINT ["./init-app.sh"]
 
 # Keep your CMD instruction to run the application
-CMD [ "node", "app.js" ]
+CMD [ "node", "dist/app.js" ]

@@ -8,8 +8,6 @@ DB_USERNAME=$(echo $DB_CREDENTIALS | jq -r .DB_USERNAME)
 DB_PASSWORD=$(echo $DB_CREDENTIALS | jq -r .DB_PASSWORD)
 DB_HOST=$(echo $DB_CREDENTIALS | jq -r .DB_HOST)
 
-echo $DB_USERNAME
-
 # 進行資料庫連接檢查  
 while ! sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -Q "SELECT 1" ; do
   echo "Waiting for database connection..."

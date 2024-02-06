@@ -1,8 +1,7 @@
 import { Sequelize } from 'sequelize-typescript'
-import { User } from './user'
 import _ from 'lodash'
 import { getConfig } from '../../config/config'
-
+import { User } from './user'
 
 export async function initializeDatabase() {
   const env = process.env.NODE_ENV || 'development'
@@ -15,6 +14,7 @@ export async function initializeDatabase() {
     {
       host: dbConfig.host,
       dialect: dbConfig.dialect,
+      models: [User]
     }
   )
 

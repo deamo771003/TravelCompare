@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeDatabase = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const config_1 = require("../../config/config");
+const user_1 = require("./user");
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         const env = process.env.NODE_ENV || 'development';
@@ -34,6 +35,7 @@ function initializeDatabase() {
         const sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
+            models: [user_1.User]
         });
         try {
             yield sequelize.authenticate();

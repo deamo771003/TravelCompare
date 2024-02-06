@@ -15,7 +15,7 @@ while ! sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -Q "SELECT 1" ; do
 done
 
 # 檢查Users表是否存在，並修剪輸出
-table_exists=$(sqlcmd -S $DB_HOST -d $DB_DATABASE -U $DB_USERNAME -P$DB_PASSWORD -Q "IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users') SELECT 1 ELSE SELECT 0" -h -1 | tr -d '[:space:]')
+table_exists=$(sqlcmd -S $DB_HOST -U $DB_USERNAME -P$DB_PASSWORD -d $DB_DATABASE -Q "IF EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'Users') SELECT 1 ELSE SELECT 0" -h -1 | tr -d '[:space:]')
 
 # 如果表不存在，執行遷移和種子
 if [ "$table_exists" -eq "0" ]; then

@@ -6,6 +6,7 @@ services:
     #   - .env
     environment:
       - NODE_ENV=production
+      - PORT=80
     ports:
       - "80:80"
     # command: ./init-app.sh

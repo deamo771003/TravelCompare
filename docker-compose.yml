@@ -9,4 +9,3 @@ services:
       - PORT=80
     ports:
       - "80:80"
-    # command: ./init-app.sh

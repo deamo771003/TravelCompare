@@ -2,6 +2,13 @@ import { Sequelize } from 'sequelize-typescript'
 import _ from 'lodash'
 import { getConfig } from '../../config/config'
 import { User } from './user'
+import { Favorite } from './favorite';
+import { Star } from './star';
+import { Comment } from './comment';
+import { Itinerary } from './itinerary';
+import { Origin } from './origin'
+import { Country } from './country'
+import { Agency } from './agency'
 
 export async function initializeDatabase() {
   const env = process.env.NODE_ENV || 'development'
@@ -14,7 +21,7 @@ export async function initializeDatabase() {
     {
       host: dbConfig.host,
       dialect: dbConfig.dialect,
-      models: [User]
+      models: [User, Favorite, Star, Comment, Itinerary, Origin, Country, Agency]
     }
   )
 
@@ -29,3 +36,10 @@ export async function initializeDatabase() {
 }
 
 export * from './user'
+export * from './favorite'
+export * from './comment'
+export * from './itinerary'
+export * from './origin'
+export * from './country'
+export * from './agency'
+export * from './star'

@@ -27,6 +27,13 @@ exports.initializeDatabase = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
 const config_1 = require("../../config/config");
 const user_1 = require("./user");
+const favorite_1 = require("./favorite");
+const star_1 = require("./star");
+const comment_1 = require("./comment");
+const itinerary_1 = require("./itinerary");
+const origin_1 = require("./origin");
+const country_1 = require("./country");
+const agency_1 = require("./agency");
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         const env = process.env.NODE_ENV || 'development';
@@ -35,7 +42,7 @@ function initializeDatabase() {
         const sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
-            models: [user_1.User]
+            models: [user_1.User, favorite_1.Favorite, star_1.Star, comment_1.Comment, itinerary_1.Itinerary, origin_1.Origin, country_1.Country, agency_1.Agency]
         });
         try {
             yield sequelize.authenticate();
@@ -50,3 +57,10 @@ function initializeDatabase() {
 }
 exports.initializeDatabase = initializeDatabase;
 __exportStar(require("./user"), exports);
+__exportStar(require("./favorite"), exports);
+__exportStar(require("./comment"), exports);
+__exportStar(require("./itinerary"), exports);
+__exportStar(require("./origin"), exports);
+__exportStar(require("./country"), exports);
+__exportStar(require("./agency"), exports);
+__exportStar(require("./star"), exports);

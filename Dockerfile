@@ -25,14 +25,8 @@ ENV PATH="$PATH:/opt/mssql-tools/bin"
 # Copy the rest of your application
 COPY . .
 
-# Make sure your init-app.sh script is executable
-# RUN chmod +x ./init-app.sh
-
 # Expose the port your app runs on
-EXPOSE 3000
-
-# This will run your init-app.sh script when the container starts
-# ENTRYPOINT ["./init-app.sh"]
+EXPOSE 80
 
 # Keep your CMD instruction to run the application
 CMD [ "node", "dist/app.js" ]

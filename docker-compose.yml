@@ -7,5 +7,13 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=80
+      - DB_USERNAME=test
+      - DB_PASSWORD=test
+      - DB_DATABASE=test
+      - DB_HOST=test
+      - AWS_DB_HOST=test
+      - AWS_DB_USERNAME=test
+      - AWS_DB_PASSWORD=test
+      - AWS_DB_DATABASE=test
     ports:
       - "80:80"

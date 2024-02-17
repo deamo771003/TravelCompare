@@ -17,9 +17,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.use(cors())
 
-if (!process.env.AWS_DB_HOST) {
-  loadSecrets()
-}
+loadSecrets()
 
 initializeDatabase()
 

@@ -52,7 +52,7 @@ function initializeDatabase() {
         try {
             yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync(); // 如果表格已存在，可使用 { force: true } 覆蓋
+            yield sequelize.sync({ force: true }); // 如果表格已存在，可使用 { force: true } 覆蓋
             console.log('Table created successfully.');
         }
         catch (error) {

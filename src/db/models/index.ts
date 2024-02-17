@@ -32,7 +32,7 @@ export async function initializeDatabase() {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync(); // 如果表格已存在，可使用 { force: true } 覆蓋
+    await sequelize.sync({ force: true }); // 如果表格已存在，可使用 { force: true } 覆蓋
     console.log('Table created successfully.')
   } catch (error) {
     console.error('Unable to connect to the database:', error)

@@ -1,6 +1,6 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import { Sequelize } from 'sequelize-typescript'
-import _ from 'lodash'
-import { getConfig } from '../../config/config'
 import { User } from './user'
 import { Favorite } from './favorite';
 import { Star } from './star';
@@ -9,10 +9,12 @@ import { Itinerary } from './itinerary';
 import { Origin } from './origin'
 import { Country } from './country'
 import { Agency } from './agency'
+import config from '../../config/config'
+import { ConfigInterface } from '../../interfaces/config-interface'
+
+const env = (process.env.NODE_ENV || 'development') as keyof ConfigInterface
 
 export async function initializeDatabase() {
-  const env = process.env.NODE_ENV || 'development'
-  const config = await getConfig()
   const dbConfig = config[env]
   const sequelize = new Sequelize(
     dbConfig.database,
@@ -28,7 +30,7 @@ export async function initializeDatabase() {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
+    await sequelize.sync(); // 如果表格已存在，可使用 { force: true } 覆蓋
     console.log('Table created successfully.')
   } catch (error) {
     console.error('Unable to connect to the database:', error)

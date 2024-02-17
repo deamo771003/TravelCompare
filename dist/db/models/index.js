@@ -22,10 +22,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initializeDatabase = void 0;
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const sequelize_typescript_1 = require("sequelize-typescript");
-const config_1 = require("../../config/config");
 const user_1 = require("./user");
 const favorite_1 = require("./favorite");
 const star_1 = require("./star");
@@ -34,11 +38,11 @@ const itinerary_1 = require("./itinerary");
 const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
+const config_1 = __importDefault(require("../../config/config"));
+const env = (process.env.NODE_ENV || 'development');
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        const env = process.env.NODE_ENV || 'development';
-        const config = yield (0, config_1.getConfig)();
-        const dbConfig = config[env];
+        const dbConfig = config_1.default[env];
         const sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
@@ -47,7 +51,7 @@ function initializeDatabase() {
         try {
             yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync(); // 如果表格已存在，使用 { force: true } 来覆盖它
+            yield sequelize.sync(); // 如果表格已存在，可使用 { force: true } 覆蓋
             console.log('Table created successfully.');
         }
         catch (error) {

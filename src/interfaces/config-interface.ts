@@ -1,15 +1,13 @@
-export interface ConfigAttributes {
+export interface ConfigInterface {
+  development: DatabaseConfig;
+  production: DatabaseConfig;
+}
+
+interface DatabaseConfig {
   database: string;
   username: string;
   password: string;
   host: string;
-  port?: number
-  seederStorage?: string;
-  seederStorageTableName?: string;
-  seederStoragePath?: string;
   dialect: 'mssql';
+  port: number;
 }
-
-export interface ConfigKeyAttribute {
-  [Key: string]: ConfigAttributes
-} 

@@ -9,14 +9,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const faker = require('faker');
+const generatePassword = () => {
+    let password = "";
+    const length = 9;
+    for (let i = 0; i < length; i++) {
+        password += Math.floor(Math.random() * 10);
+    }
+    return password;
+};
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        return queryInterface.bulkInsert('Users', [{
-                username: 'Jimmy',
-                password: 'password',
-                createdAt: new Date(),
-                updatedAt: new Date()
-            }]);
+        const fakeUser = () => ({
+            email: faker.internet.email(),
+            name: faker.name.findName(),
+            password: generatePassword(),
+            admin: false,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+        const users = Array.from({ length: 10 }, () => fakeUser());
+        return queryInterface.bulkInsert('Users', users);
     }),
     down: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
         return queryInterface.bulkDelete('Users', {}, {});

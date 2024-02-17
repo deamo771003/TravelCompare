@@ -17,21 +17,22 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(cors())
 
 async function startServer() {
-await loadSecrets()
-await initializeDatabase()
+  await loadSecrets()
+  console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
+  await initializeDatabase()
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+  app.use(express.urlencoded({ extended: true }))
+  app.use(express.json())
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world!')
-})
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Hello world!')
+  })
 
-app.use(routes)
+  app.use(routes)
 
-app.listen(port, () => {
-  console.log(`express sever is running on PORT:${port}`)
-});
+  app.listen(port, () => {
+    console.log(`express sever is running on PORT:${port}`)
+  });
 }
 
 startServer().catch(error => {

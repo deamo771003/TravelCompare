@@ -30,6 +30,7 @@ app.use((0, cors_1.default)());
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, loadSecrets_1.loadSecrets)();
+        console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`);
         yield (0, index_1.initializeDatabase)();
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json());

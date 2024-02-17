@@ -14,9 +14,11 @@ import { ConfigInterface } from '../../interfaces/config-interface'
 
 const env = (process.env.NODE_ENV || 'development') as keyof ConfigInterface
 
+let sequelize: Sequelize
+
 export async function initializeDatabase() {
   const dbConfig = config[env]
-  const sequelize = new Sequelize(
+  sequelize = new Sequelize(
     dbConfig.database,
     dbConfig.username,
     dbConfig.password,
@@ -36,6 +38,8 @@ export async function initializeDatabase() {
     console.error('Unable to connect to the database:', error)
   }
 }
+
+export { sequelize }
 
 export * from './user'
 export * from './favorite'

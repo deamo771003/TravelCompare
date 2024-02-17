@@ -33,7 +33,7 @@ module.exports = {
       }
     }
 
-    const favorites = Array.from({ length: 10 }, () => generateUniqueFavorite())
+    const favorites = Array.from({ length: 20 }, () => generateUniqueFavorite())
     return queryInterface.bulkInsert('Favorites', favorites)
         
     } catch (error) {

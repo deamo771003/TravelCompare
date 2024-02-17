@@ -1,6 +1,7 @@
+// URL後方加上api-docs = swagger page
 import swaggerJsdoc from 'swagger-jsdoc';
 const port = process.env.PORT || 3000
-const url = process.env.URL || `http://localhost:${port}`
+const url = process.env.AWS_URL || `http://localhost:${port}`
 
 const options = {
   swaggerDefinition: {

@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.initializeDatabase = void 0;
+exports.sequelize = exports.initializeDatabase = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const sequelize_typescript_1 = require("sequelize-typescript");
@@ -40,10 +40,11 @@ const country_1 = require("./country");
 const agency_1 = require("./agency");
 const config_1 = __importDefault(require("../../config/config"));
 const env = (process.env.NODE_ENV || 'development');
+let sequelize;
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         const dbConfig = config_1.default[env];
-        const sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
+        exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
             models: [user_1.User, favorite_1.Favorite, star_1.Star, comment_1.Comment, itinerary_1.Itinerary, origin_1.Origin, country_1.Country, agency_1.Agency]

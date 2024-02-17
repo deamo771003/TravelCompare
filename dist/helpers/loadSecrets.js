@@ -21,6 +21,7 @@ function loadSecrets() {
             process.env.AWS_DB_USERNAME = secrets.DB_USERNAME;
             process.env.AWS_DB_PASSWORD = secrets.DB_PASSWORD;
             process.env.AWS_DB_DATABASE = secrets.DB_DATABASE;
+            process.env.AWS_URL = secrets.URL;
         }
         catch (error) {
             console.error('Failed to load secrets:', error);

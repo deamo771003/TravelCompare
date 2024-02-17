@@ -14,12 +14,11 @@ const port = process.env.PORT || 3000
 
 // Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-
 app.use(cors())
 
-loadSecrets()
-
-initializeDatabase()
+async function startServer() {
+await loadSecrets()
+await initializeDatabase()
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -33,3 +32,8 @@ app.use(routes)
 app.listen(port, () => {
   console.log(`express sever is running on PORT:${port}`)
 });
+}
+
+startServer().catch(error => {
+  console.error("Failed to start the server:", error)
+})

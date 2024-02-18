@@ -9,7 +9,7 @@ function getEnvOrSecret(key: string): string {
   throw new Error(`Environment variable ${key} is not defined`)
 }
 
-const config = {
+export const config = {
   development: {
     database: getEnvOrSecret('DB_DATABASE'),
     username: getEnvOrSecret('DB_USERNAME'),
@@ -26,7 +26,5 @@ const config = {
     dialect: 'mssql' as const
   }
 }
-
-export default config
 
 

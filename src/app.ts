@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+require('dotenv').config()
 import express, { Request, Response } from 'express'
 import routes from './routes'
 import swaggerUi from 'swagger-ui-express'

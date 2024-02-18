@@ -24,7 +24,7 @@ const options = {
                 description: 'Local server',
             },
             {
-                url: process.env.AWS_URL,
+                url: awsUrl,
                 description: 'AWS EC2 server',
             },
         ],

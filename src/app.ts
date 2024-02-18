@@ -12,13 +12,14 @@ import { initializeDatabase } from './db/models/index'
 const app = express()
 const port = process.env.PORT || 3000
 
-// Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-app.use(cors())
-
 async function startServer() {
   await loadSecrets()
   console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
+  console.log(`AWS_URL=${process.env.AWS_URL}`)
+
+  // Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+app.use(cors())
 
   await initializeDatabase()
 

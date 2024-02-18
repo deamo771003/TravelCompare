@@ -24,13 +24,14 @@ const loadSecrets_1 = require("./helpers/loadSecrets");
 const index_1 = require("./db/models/index");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
-// Swagger UI
-app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
-app.use((0, cors_1.default)());
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, loadSecrets_1.loadSecrets)();
         console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`);
+        console.log(`AWS_URL=${process.env.AWS_URL}`);
+        // Swagger UI
+        app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
+        app.use((0, cors_1.default)());
         yield (0, index_1.initializeDatabase)();
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json());

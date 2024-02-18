@@ -2,12 +2,12 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 import express, { Request, Response } from 'express'
-import { initializeDatabase } from './db/models/index'
 import routes from './routes'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './swagger'
 import cors from 'cors'
 import { loadSecrets } from './helpers/loadSecrets'
+import { initializeDatabase } from './db/models/index'
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -19,6 +19,7 @@ app.use(cors())
 async function startServer() {
   await loadSecrets()
   console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
+
   await initializeDatabase()
 
   app.use(express.urlencoded({ extended: true }))

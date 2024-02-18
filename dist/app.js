@@ -16,12 +16,12 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 const express_1 = __importDefault(require("express"));
-const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));
 const cors_1 = __importDefault(require("cors"));
 const loadSecrets_1 = require("./helpers/loadSecrets");
+const index_1 = require("./db/models/index");
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 // Swagger UI

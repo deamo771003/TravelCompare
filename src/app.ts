@@ -9,6 +9,8 @@ import { loadSecrets } from './helpers/loadSecrets'
 // import { initializeDatabase } from './db/models/index'
 
 loadSecrets()
+console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
+console.log(`AWS_URL=${process.env.AWS_URL}`)
 const app = express()
 const port = process.env.PORT || 3000
 

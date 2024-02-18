@@ -45,6 +45,8 @@ const cors_1 = __importDefault(require("cors"));
 const loadSecrets_1 = require("./helpers/loadSecrets");
 // import { initializeDatabase } from './db/models/index'
 (0, loadSecrets_1.loadSecrets)();
+console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`);
+console.log(`AWS_URL=${process.env.AWS_URL}`);
 const app = (0, express_1.default)();
 const port = process.env.PORT || 3000;
 function startServer() {

@@ -39,7 +39,7 @@ const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
 const config_1 = __importDefault(require("../../config/config"));
-const env = (process.env.NODE_ENV || 'development');
+const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
 let sequelize;
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {

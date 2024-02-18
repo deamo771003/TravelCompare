@@ -12,7 +12,7 @@ import { Agency } from './agency'
 import config from '../../config/config'
 import { ConfigInterface } from '../../interfaces/config-interface'
 
-const env = (process.env.NODE_ENV || 'development') as keyof ConfigInterface
+const env = (process.env.NODE_ENV? process.env.NODE_ENV : 'development') as keyof ConfigInterface
 
 let sequelize: Sequelize
 

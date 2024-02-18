@@ -9,7 +9,7 @@ import { Itinerary } from './itinerary';
 import { Origin } from './origin'
 import { Country } from './country'
 import { Agency } from './agency'
-import { config } from '../../config/config'
+import config from '../../config/config'
 import { ConfigInterface } from '../../interfaces/config-interface'
 
 const env = (process.env.NODE_ENV? process.env.NODE_ENV : 'development') as keyof ConfigInterface

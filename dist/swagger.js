@@ -5,8 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // URL後方加上api-docs = swagger page
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
 const port = process.env.PORT || 3000;
-const url = process.env.AWS_URL || `http://localhost:${port}`;
+const localUrl = `http://localhost:${port}`;
+const awsUrl = process.env.AWS_URL;
 const options = {
     swaggerDefinition: {
         openapi: '3.0.0',
@@ -17,8 +20,12 @@ const options = {
         },
         servers: [
             {
-                url: url,
+                url: localUrl,
                 description: 'Local server',
+            },
+            {
+                url: process.env.AWS_URL,
+                description: 'AWS EC2 server',
             },
         ],
     },

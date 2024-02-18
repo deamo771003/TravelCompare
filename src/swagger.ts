@@ -1,7 +1,10 @@
 // URL後方加上api-docs = swagger page
-import swaggerJsdoc from 'swagger-jsdoc';
+import swaggerJsdoc from 'swagger-jsdoc'
+import dotenv from 'dotenv'
+dotenv.config()
 const port = process.env.PORT || 3000
-const url = process.env.AWS_URL || `http://localhost:${port}`
+const localUrl = `http://localhost:${port}`
+const awsUrl =  process.env.AWS_URL
 
 const options = {
   swaggerDefinition: {
@@ -13,8 +16,12 @@ const options = {
     },
     servers: [
       {
-        url: url,
+        url: localUrl,
         description: 'Local server',
+      },
+      {
+        url: process.env.AWS_URL,
+        description: 'AWS EC2 server',
       },
     ],
   },

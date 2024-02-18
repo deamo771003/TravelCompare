@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './swagger'
 import cors from 'cors'
 import { loadSecrets } from './helpers/loadSecrets'
-import { initializeDatabase } from './db/models/index'
+// import { initializeDatabase } from './db/models/index'
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -21,7 +21,8 @@ async function startServer() {
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use(cors())
 
-  await initializeDatabase()
+  const databaseModule = await import('./db/models/index');
+  await databaseModule.initializeDatabase()
 
   app.use(express.urlencoded({ extended: true }))
   app.use(express.json())

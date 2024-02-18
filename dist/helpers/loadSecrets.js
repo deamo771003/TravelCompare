@@ -17,6 +17,7 @@ function loadSecrets() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const secrets = yield getSecret(secretName);
+            process.env.AWS_NODE_ENV = secrets.NODE_ENV;
             process.env.AWS_DB_HOST = secrets.DB_HOST;
             process.env.AWS_DB_USERNAME = secrets.DB_USERNAME;
             process.env.AWS_DB_PASSWORD = secrets.DB_PASSWORD;

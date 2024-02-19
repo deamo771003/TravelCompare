@@ -18,6 +18,7 @@ const loadSecrets_1 = require("../helpers/loadSecrets");
 function getEnvOrSecret(key) {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, loadSecrets_1.loadSecrets)();
+        console.log(process.env.AWS_DB_HOST);
         const value = process.env[key];
         if (value) {
             return value;

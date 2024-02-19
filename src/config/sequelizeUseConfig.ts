@@ -4,6 +4,7 @@ import { loadSecrets } from '../helpers/loadSecrets'
 
 async function getEnvOrSecret(key: string): Promise<string> {
   await loadSecrets()
+  console.log(process.env.AWS_DB_HOST)
   const value = process.env[key];
   if (value) {
     return value;

@@ -45,9 +45,7 @@ function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, loadSecrets_1.loadSecrets)();
         const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
-        console.log(`env=${env}`);
         const dbConfig = (0, config_1.getDatabaseConfig)(env);
-        console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,

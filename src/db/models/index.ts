@@ -18,9 +18,7 @@ let sequelize: Sequelize
 export async function initializeDatabase() {
   await loadSecrets()
   const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as keyof ConfigInterface
-  console.log(`env=${env}`)
   const dbConfig = getDatabaseConfig(env)
-  console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);
   sequelize = new Sequelize(
     dbConfig.database,
     dbConfig.username,

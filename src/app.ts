@@ -4,13 +4,13 @@ import express, { Request, Response } from 'express'
 import routes from './routes'
 import cors from 'cors'
 import { loadSecrets } from './helpers/loadSecrets'
+loadSecrets()
+console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
+console.log(`AWS_URL=${process.env.AWS_URL}`)
 import { initializeDatabase } from './db/models/index'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './swagger'
 
-loadSecrets()
-console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
-console.log(`AWS_URL=${process.env.AWS_URL}`)
 const app = express()
 const port = process.env.PORT || 3000
 

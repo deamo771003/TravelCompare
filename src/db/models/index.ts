@@ -9,7 +9,6 @@ import { Itinerary } from './itinerary';
 import { Origin } from './origin'
 import { Country } from './country'
 import { Agency } from './agency'
-// import { config } from '../../config/config'
 import { ConfigInterface } from '../../interfaces/config-interface'
 import { loadSecrets } from '../../helpers/loadSecrets'
 import { getDatabaseConfig } from '../../config/config'

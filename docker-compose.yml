@@ -9,4 +9,4 @@ services:
       - PORT=80
 
     ports:
-      - "80:80"
+      - "80:81"

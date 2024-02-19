@@ -14,10 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const loadSecretsForSeed_1 = require("../helpers/loadSecretsForSeed");
 function getEnvOrSecret(key) {
     return __awaiter(this, void 0, void 0, function* () {
-        const value = yield (0, loadSecretsForSeed_1.loadSecrets)(key);
+        const value = process.env[key];
         if (value) {
             return value;
         }

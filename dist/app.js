@@ -18,12 +18,14 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));
+const loadSecrets_1 = require("helpers/loadSecrets");
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
 function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         const port = process.env.PORT || 3000;
+        yield (0, loadSecrets_1.loadSecrets)();
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)());

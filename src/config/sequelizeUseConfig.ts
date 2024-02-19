@@ -1,9 +1,8 @@
 import dotenv from 'dotenv'
 dotenv.config()
-import { loadSecrets } from '../helpers/loadSecretsForSeed'
 
 async function getEnvOrSecret(key: string): Promise<string> {
-  const value = await loadSecrets(key)
+  const value = process.env[key]
   if (value) {
     return value;
   }

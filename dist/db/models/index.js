@@ -38,14 +38,15 @@ const itinerary_1 = require("./itinerary");
 const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
-const config_1 = require("../../config/config");
+const loadSecrets_1 = require("helpers/loadSecrets");
+const config_1 = require("config/config");
 const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
 let sequelize;
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
+        yield (0, loadSecrets_1.loadSecrets)();
         console.log(`env=${env}`);
-        console.log(`config=${JSON.stringify(config_1.config, null, 2)}`);
-        const dbConfig = config_1.config[env];
+        const dbConfig = (0, config_1.getDatabaseConfig)(env);
         console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,

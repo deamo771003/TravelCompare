@@ -11,12 +11,14 @@ import { Country } from './country'
 import { Agency } from './agency'
 import { config } from '../../config/config'
 import { ConfigInterface } from '../../interfaces/config-interface'
+import { loadSecrets } from '../../helpers/loadSecrets'
 
-const env = (process.env.NODE_ENV? process.env.NODE_ENV : 'development') as keyof ConfigInterface
+const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as keyof ConfigInterface
 
 let sequelize: Sequelize
 
 export async function initializeDatabase() {
+  await loadSecrets()
   const dbConfig = config[env]
   sequelize = new Sequelize(
     dbConfig.database,

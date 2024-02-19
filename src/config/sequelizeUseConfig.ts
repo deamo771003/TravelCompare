@@ -1,9 +1,11 @@
 import dotenv from 'dotenv'
 dotenv.config()
+import { loadSecrets } from '../helpers/loadSecrets'
 
-function getEnvOrSecret(key: string): string {
+async function getEnvOrSecret(key: string): Promise<string> {
+  await loadSecrets()
   const value = process.env[key];
-  if (value !== undefined) {
+  if (value) {
     return value;
   }
   throw new Error(`Environment variable ${key} is not defined`)

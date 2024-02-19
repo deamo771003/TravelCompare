@@ -17,7 +17,7 @@ dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
-const swagger_1 = __importDefault(require("./swagger"));
+const swagger_1 = require("./swagger");
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
 function startApp() {
@@ -25,7 +25,8 @@ function startApp() {
         const app = (0, express_1.default)();
         const port = process.env.PORT || 3000;
         // Swagger UI
-        app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
+        const swaggerSpec = (0, swagger_1.initializeApp)();
+        app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec));
         app.use((0, cors_1.default)());
         yield (0, index_1.initializeDatabase)();
         app.use(express_1.default.urlencoded({ extended: true }));

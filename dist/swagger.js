@@ -17,6 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.initializeApp = void 0;
 // const port = process.env.PORT || 3000
 // const localUrl = `http://localhost:${port}`
 // const awsUrl = process.env.AWS_URL
@@ -90,6 +91,7 @@ function initializeApp() {
         });
     });
 }
+exports.initializeApp = initializeApp;
 initializeApp().catch(error => {
     console.error('Failed to initialize the app:', error);
 });

@@ -46,7 +46,7 @@ import routes from './routes'; // 假设您的路由配置在这里
 
 dotenv.config();
 
-async function initializeApp() {
+export async function initializeApp() {
   await loadSecrets(); // 确保在进行任何配置之前加载秘密
 
   const port = process.env.PORT || 3000;

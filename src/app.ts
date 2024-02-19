@@ -1,12 +1,13 @@
 import dotenv from 'dotenv'
 dotenv.config()
-import express, { Request, Response } from 'express'
-import routes from './routes'
-import cors from 'cors'
 import { loadSecrets } from './helpers/loadSecrets'
 loadSecrets()
 console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
 console.log(`AWS_URL=${process.env.AWS_URL}`)
+import express, { Request, Response } from 'express'
+import routes from './routes'
+import cors from 'cors'
+
 import { initializeDatabase } from './db/models/index'
 import swaggerUi from 'swagger-ui-express'
 import swaggerSpec from './swagger'

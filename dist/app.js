@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const express_1 = __importDefault(require("express"));
-const routes_1 = __importDefault(require("./routes"));
-const cors_1 = __importDefault(require("cors"));
 const loadSecrets_1 = require("./helpers/loadSecrets");
 (0, loadSecrets_1.loadSecrets)();
 console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`);
 console.log(`AWS_URL=${process.env.AWS_URL}`);
+const express_1 = __importDefault(require("express"));
+const routes_1 = __importDefault(require("./routes"));
+const cors_1 = __importDefault(require("cors"));
 const index_1 = require("./db/models/index");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));

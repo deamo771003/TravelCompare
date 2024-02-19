@@ -6,7 +6,7 @@ services:
     #   - .env
     environment:
       - NODE_ENV=production
-      - PORT=81
+      - PORT=80
 
     ports:
-      - "8080:81"
+      - "80:80"

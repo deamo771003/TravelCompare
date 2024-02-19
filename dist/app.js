@@ -25,7 +25,7 @@ function startApp() {
         const app = (0, express_1.default)();
         const port = process.env.PORT || 3000;
         // Swagger UI
-        const swaggerSpec = (0, swagger_1.initializeApp)();
+        const swaggerSpec = (0, swagger_1.initializeSwagger)();
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerSpec));
         app.use((0, cors_1.default)());
         yield (0, index_1.initializeDatabase)();

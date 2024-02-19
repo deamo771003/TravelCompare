@@ -14,12 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const loadSecrets_1 = require("../helpers/loadSecrets");
+const loadSecretsForSeed_1 = require("../helpers/loadSecretsForSeed");
 function getEnvOrSecret(key) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, loadSecrets_1.loadSecrets)();
-        console.log(process.env.AWS_DB_HOST);
-        const value = process.env[key];
+        const value = yield (0, loadSecretsForSeed_1.loadSecrets)(key);
         if (value) {
             return value;
         }

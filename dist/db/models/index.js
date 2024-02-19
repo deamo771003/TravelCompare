@@ -39,12 +39,10 @@ const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
 const config_1 = require("../../config/config");
-const loadSecrets_1 = require("../../helpers/loadSecrets");
 const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
 let sequelize;
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, loadSecrets_1.loadSecrets)();
         const dbConfig = config_1.config[env];
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,

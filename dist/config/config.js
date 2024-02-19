@@ -8,11 +8,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 function getEnvOrSecret(key) {
     const value = process.env[key];
-    // if (value !== undefined) {
-    //   return value;
-    // }
-    // throw new Error(`Environment variable ${key} is not defined`)
-    return value;
+    if (value) {
+        return value;
+    }
+    throw new Error(`Environment variable ${key} is not defined`);
 }
 exports.config = {
     development: {

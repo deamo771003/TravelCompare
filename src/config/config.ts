@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
-dotenv.config()
+// import dotenv from 'dotenv'
+// dotenv.config()
 
 function getEnvOrSecret(key: string): string {
   const value = process.env[key];

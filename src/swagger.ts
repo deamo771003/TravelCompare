@@ -6,8 +6,15 @@ import { loadSecrets } from './helpers/loadSecrets'
 
 loadSecrets()
 const port = process.env.PORT || 3000
-const localUrl = `http://localhost:${port}`
-const awsUrl = process.env.AWS_URL
+let url
+let description
+if (process.env.AWS_URL !== 'test') {
+  url = process.env.AWS_URL
+  description = 'AWS server'
+} else {
+  url = `http://localhost:${port}`
+  description = 'Local server'
+}
 
 const options = {
   swaggerDefinition: {
@@ -19,13 +26,9 @@ const options = {
     },
     servers: [
       {
-        url: localUrl,
-        description: 'Local server',
-      },
-      {
-        url: awsUrl,
-        description: 'AWS EC2 server',
-      },
+        url: url,
+        description: description,
+      }
     ],
   },
   apis: ['./src/routes/**/*.ts'],

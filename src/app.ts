@@ -4,7 +4,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swagger';
-import { loadSecrets } from 'helpers/loadSecrets'
+import { loadSecrets } from './helpers/loadSecrets'
 import { initializeDatabase } from './db/models/index';
 import routes from './routes';
 

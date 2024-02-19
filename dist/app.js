@@ -18,7 +18,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));
-const loadSecrets_1 = require("helpers/loadSecrets");
+const loadSecrets_1 = require("./helpers/loadSecrets");
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
 function startApp() {

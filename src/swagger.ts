@@ -4,8 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { loadSecrets } from './helpers/loadSecrets'
 
-export async function initializeSwagger() {
-await loadSecrets()
+loadSecrets()
 const port = process.env.PORT || 3000
 const localUrl = `http://localhost:${port}`
 const awsUrl = process.env.AWS_URL
@@ -30,10 +29,8 @@ const options = {
     ],
   },
   apis: ['./src/routes/**/*.ts'],
-}
+};
 
-  const swaggerSpec = swaggerJsdoc(options)
-  return swaggerSpec
-}
+const swaggerSpec = swaggerJsdoc(options);
 
-
+export default swaggerSpec;

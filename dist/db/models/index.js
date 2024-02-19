@@ -43,9 +43,9 @@ const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
 let sequelize;
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        const dbConfig = config_1.config[env];
         console.log(`env=${env}`);
         console.log(`config=${JSON.stringify(config_1.config, null, 2)}`);
+        const dbConfig = config_1.config[env];
         console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,

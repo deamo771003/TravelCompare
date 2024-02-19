@@ -17,9 +17,9 @@ const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as key
 let sequelize: Sequelize
 
 export async function initializeDatabase() {
-  const dbConfig = config[env]
   console.log(`env=${env}`)
   console.log(`config=${JSON.stringify(config, null, 2)}`);
+  const dbConfig = config[env]
   console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);
   sequelize = new Sequelize(
     dbConfig.database,

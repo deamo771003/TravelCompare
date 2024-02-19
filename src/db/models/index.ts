@@ -18,6 +18,7 @@ let sequelize: Sequelize
 
 export async function initializeDatabase() {
   const dbConfig = config[env]
+  console.log(`env=${env}`)
   console.log(`dbConfig=${dbConfig.host}`)
   sequelize = new Sequelize(
     dbConfig.database,

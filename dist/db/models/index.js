@@ -38,8 +38,8 @@ const itinerary_1 = require("./itinerary");
 const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
-const loadSecrets_1 = require("helpers/loadSecrets");
-const config_1 = require("config/config");
+const loadSecrets_1 = require("../../helpers/loadSecrets");
+const config_1 = require("../../config/config");
 const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
 let sequelize;
 function initializeDatabase() {

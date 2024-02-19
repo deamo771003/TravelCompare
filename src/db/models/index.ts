@@ -11,8 +11,8 @@ import { Country } from './country'
 import { Agency } from './agency'
 // import { config } from '../../config/config'
 import { ConfigInterface } from '../../interfaces/config-interface'
-import { loadSecrets } from 'helpers/loadSecrets'
-import { getDatabaseConfig } from 'config/config'
+import { loadSecrets } from '../../helpers/loadSecrets'
+import { getDatabaseConfig } from '../../config/config'
 
 const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as keyof ConfigInterface
 

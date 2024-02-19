@@ -14,12 +14,11 @@ import { ConfigInterface } from '../../interfaces/config-interface'
 import { loadSecrets } from '../../helpers/loadSecrets'
 import { getDatabaseConfig } from '../../config/config'
 
-const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as keyof ConfigInterface
-
 let sequelize: Sequelize
 
 export async function initializeDatabase() {
   await loadSecrets()
+  const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development') as keyof ConfigInterface
   console.log(`env=${env}`)
   const dbConfig = getDatabaseConfig(env)
   console.log(`dbConfig=${JSON.stringify(dbConfig, null, 2)}`);

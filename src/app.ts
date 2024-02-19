@@ -13,12 +13,13 @@ async function startApp() {
   const port = process.env.PORT || 3000;
 
   await loadSecrets()
+  console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`)
 
   // Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   app.use(cors());
 
-  await initializeDatabase();
+  await initializeDatabase()
 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());

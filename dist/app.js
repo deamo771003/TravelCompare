@@ -26,6 +26,7 @@ function startApp() {
         const app = (0, express_1.default)();
         const port = process.env.PORT || 3000;
         yield (0, loadSecrets_1.loadSecrets)();
+        console.log(`AWS_DB_HOST=${process.env.AWS_DB_HOST}`);
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)());

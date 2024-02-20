@@ -27,7 +27,7 @@ export function getDatabaseConfig(env: string) {
       dialect: 'mssql' as const
     }
   };
-
+  
   return configs[env as keyof typeof configs];
 }
 

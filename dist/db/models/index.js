@@ -71,6 +71,7 @@ function runSeeders() {
         }
     });
 }
+// ORM 初始化 DB
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
         if (process.env.NODE_ENV === 'production') {
@@ -86,7 +87,7 @@ function initializeDatabase() {
         try {
             yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync(); // 重跑 model 加上 { force: true }
+            yield sequelize.sync(); // 欲重跑 model 加入 { force: true }
             console.log('Table created successfully.');
             yield runSeeders();
             console.log('runSeeders successfully.');
@@ -97,6 +98,7 @@ function initializeDatabase() {
     });
 }
 exports.initializeDatabase = initializeDatabase;
+// 導出 models
 __exportStar(require("./user"), exports);
 __exportStar(require("./favorite"), exports);
 __exportStar(require("./comment"), exports);

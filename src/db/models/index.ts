@@ -1,8 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config();
 import { Sequelize } from 'sequelize-typescript'
-import { Umzug, SequelizeStorage } from 'umzug'
-import path from 'path'
 import { User } from './user'
 import { Favorite } from './favorite'
 import { Star } from './star'
@@ -43,6 +41,7 @@ async function runSeeders() {
   }
 }
 
+// ORM 初始化 DB
 export async function initializeDatabase() {
   if (process.env.NODE_ENV === 'production') {
     await loadSecrets()
@@ -57,7 +56,7 @@ export async function initializeDatabase() {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync() // 重跑 model 加上 { force: true }
+    await sequelize.sync() // 欲重跑 model 加入 { force: true }
     console.log('Table created successfully.')
     await runSeeders()
     console.log('runSeeders successfully.')
@@ -67,6 +66,7 @@ export async function initializeDatabase() {
 }
 
 export { sequelize }
+// 導出 models
 export * from './user'
 export * from './favorite'
 export * from './comment'

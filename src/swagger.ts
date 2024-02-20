@@ -20,7 +20,7 @@ const options = {
     info: {
       title: 'TravelCompare API',
       version: '1.0.0',
-      description: 'Domain: http://ec2-35-76-107-39.ap-northeast-1.compute.amazonaws.com',
+      description: `Domain: ${url}`,
     },
     servers: [
       {

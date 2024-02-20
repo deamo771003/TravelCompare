@@ -41,21 +41,55 @@ const agency_1 = require("./agency");
 const loadSecrets_1 = require("../../helpers/loadSecrets");
 const config_1 = require("../../config/config");
 let sequelize;
+// 導入seeders
+const originSeed = require('../seeders/20240210-origin-seed');
+const agencySeed = require('../seeders/20240215-agency-seed');
+const countrySeed = require('../seeders/20240215-country-seed');
+const userSeed = require('../seeders/20240215-user-seed');
+const itinerarySeed = require('../seeders/20240216-1-itinerary');
+const favoriteSeed = require('../seeders/20240216-2-favorite');
+// ORM 初始化時自動化判斷 run seeders
+function runSeeders() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const usersCount = yield user_1.User.count();
+        if (usersCount > 0) {
+            console.log('Database already has data. Skipping seeders.');
+            return;
+        }
+        try {
+            // run seeders
+            yield originSeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            yield agencySeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            yield countrySeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            yield userSeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            yield itinerarySeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            yield favoriteSeed.up(sequelize.getQueryInterface(), sequelize_typescript_1.Sequelize);
+            console.log('Seeders have been executed successfully.');
+        }
+        catch (error) {
+            console.error('Running seeders failed:', error);
+        }
+    });
+}
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, loadSecrets_1.loadSecrets)();
-        const env = (process.env.NODE_ENV ? process.env.NODE_ENV : 'development');
+        if (process.env.NODE_ENV === 'production') {
+            yield (0, loadSecrets_1.loadSecrets)();
+        }
+        const env = process.env.NODE_ENV;
         const dbConfig = (0, config_1.getDatabaseConfig)(env);
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
-            models: [user_1.User, favorite_1.Favorite, star_1.Star, comment_1.Comment, itinerary_1.Itinerary, origin_1.Origin, country_1.Country, agency_1.Agency]
+            models: [user_1.User, favorite_1.Favorite, star_1.Star, comment_1.Comment, itinerary_1.Itinerary, origin_1.Origin, country_1.Country, agency_1.Agency],
         });
         try {
             yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync({ force: true }); // 如果表格已存在，可使用 { force: true } 覆蓋
+            yield sequelize.sync({ force: true });
             console.log('Table created successfully.');
+            yield runSeeders();
+            console.log('runSeeders successfully.');
         }
         catch (error) {
             console.error('Unable to connect to the database:', error);

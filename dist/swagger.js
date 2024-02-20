@@ -8,7 +8,9 @@ const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const loadSecrets_1 = require("./helpers/loadSecrets");
-(0, loadSecrets_1.loadSecrets)();
+if (process.env.NODE_ENV == 'test') {
+    (0, loadSecrets_1.loadSecrets)();
+}
 const port = process.env.PORT || 3000;
 let url;
 let description;

@@ -10,9 +10,9 @@ module.exports = {
       updatedAt: new Date()
     }))
     
-    return queryInterface.bulkInsert('Agencies', agencies)
+    return await queryInterface.bulkInsert('Agencies', agencies)
   },
   down: async (queryInterface: QueryInterface, Sequelize: any) => {
-    return queryInterface.bulkDelete('Agencies', {}, {})
+    return await queryInterface.bulkDelete('Agencies', {}, {})
   }
 }

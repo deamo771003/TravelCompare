@@ -11,15 +11,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        const agencyData = ['燦星', '雄獅', '東南', '山富', '百威', '可樂', '五福', '易遊網'];
-        const agencies = agencyData.map(name => ({
+        const originData = ['松山機場', '桃園機場', '台中機場', '高雄機場'];
+        const origins = originData.map(name => ({
             name,
             createdAt: new Date(),
             updatedAt: new Date()
         }));
-        return yield queryInterface.bulkInsert('Agencies', agencies);
+        return queryInterface.bulkInsert('Origins', origins);
     }),
     down: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        return yield queryInterface.bulkDelete('Agencies', {}, {});
+        return queryInterface.bulkDelete('Origins', {}, {});
     })
 };

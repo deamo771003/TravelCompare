@@ -4,7 +4,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { loadSecrets } from './helpers/loadSecrets'
 
-loadSecrets()
+
+if (process.env.NODE_ENV == 'test') {
+    loadSecrets()
+  }
 const port = process.env.PORT || 3000
 let url
 let description

@@ -7,16 +7,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const loadSecrets_1 = require("./helpers/loadSecrets");
-if (process.env.NODE_ENV == 'test') {
-    (0, loadSecrets_1.loadSecrets)();
-}
 const port = process.env.PORT || 3000;
 let url;
 let description;
 if (process.env.AWS_URL !== 'test') {
     url = process.env.AWS_URL;
-    description = 'AWS server';
+    description = 'http://ec2-35-76-107-39.ap-northeast-1.compute.amazonaws.com';
 }
 else {
     url = `http://localhost:${port}`;

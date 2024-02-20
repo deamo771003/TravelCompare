@@ -2,18 +2,13 @@
 import swaggerJsdoc from 'swagger-jsdoc'
 import dotenv from 'dotenv'
 dotenv.config()
-import { loadSecrets } from './helpers/loadSecrets'
 
-
-if (process.env.NODE_ENV == 'test') {
-    loadSecrets()
-  }
 const port = process.env.PORT || 3000
 let url
 let description
 if (process.env.AWS_URL !== 'test') {
   url = process.env.AWS_URL
-  description = 'AWS server'
+  description = 'http://ec2-35-76-107-39.ap-northeast-1.compute.amazonaws.com'
 } else {
   url = `http://localhost:${port}`
   description = 'Local server'

@@ -7,8 +7,8 @@ const port = process.env.PORT || 3000
 let url
 let description
 if (process.env.AWS_URL !== 'test') {
-  url = process.env.AWS_URL
-  description = 'http://ec2-35-76-107-39.ap-northeast-1.compute.amazonaws.com'
+  url = 'http://ec2-35-76-107-39.ap-northeast-1.compute.amazonaws.com'
+  description = 'AWS_server'
 } else {
   url = `http://localhost:${port}`
   description = 'Local server'

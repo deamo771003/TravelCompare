@@ -11,6 +11,7 @@ import { Country } from './country'
 import { Agency } from './agency'
 import { loadSecrets } from '../../helpers/loadSecrets'
 import { getDatabaseConfig } from '../../config/config'
+
 let sequelize: Sequelize;
 // 導入seeders
 const originSeed = require('../seeders/20240210-origin-seed')

@@ -6,6 +6,8 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swagger';
 import { initializeDatabase } from './db/models/index';
 import routes from './routes';
+import session from 'express-session'
+import flash from 'connect-flash'
 
 async function startApp() {
   const app = express();
@@ -14,6 +16,17 @@ async function startApp() {
   // Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   app.use(cors());
+
+  app.use(session({
+  secret: process.env.SESSION_SECRET!,
+  saveUninitialized: true,
+  resave: false,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24,
+  },
+  }))
+
+  app.use(flash())
 
   await initializeDatabase()
 

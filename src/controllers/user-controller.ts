@@ -14,6 +14,9 @@ const userController = {
         res.status(200).json(data)
       }
     })
+  },
+  signIn: (req: Request, res: Response, next: NextFunction) => {
+    userService.signIn(req, (err: CallbackError | null, data?: any) => err ? next(err) : res.status(200).json(data) )
   }
 }
 

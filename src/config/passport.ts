@@ -41,3 +41,4 @@ passport.deserializeUser((id: string, cb) => {
     .catch(err => cb(err))
 })
 
+export default passport

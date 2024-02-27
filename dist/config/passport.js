@@ -67,3 +67,4 @@ passport_1.default.deserializeUser((id, cb) => {
     })
         .catch(err => cb(err));
 });
+exports.default = passport_1.default;

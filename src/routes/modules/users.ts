@@ -27,6 +27,8 @@ import userController from '../../controllers/user-controller'
 //  *       400:
 //  *         description: Bad request
 //  */
-router.post('/signup',userController.signup)
+router.post('/signup', userController.signup)
+
+
 
 export default router

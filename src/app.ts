@@ -2,12 +2,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import session from 'express-session'
+import passport from './config/passport'
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './swagger';
 import { initializeDatabase } from './db/models/index';
 import routes from './routes';
-import session from 'express-session'
 import flash from 'connect-flash'
+
 
 async function startApp() {
   const app = express();
@@ -15,7 +17,7 @@ async function startApp() {
 
   // Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  app.use(cors());
+  app.use(cors())
 
   app.use(session({
   secret: process.env.SESSION_SECRET!,
@@ -26,6 +28,9 @@ async function startApp() {
   },
   }))
 
+  app.use(passport.initialize())
+  app.use(passport.session())
+
   app.use(flash())
 
   await initializeDatabase()
@@ -35,7 +40,7 @@ async function startApp() {
 
   app.get('/', (req: Request, res: Response) => {
     res.send('Hello world!');
-  });
+  })
 
   app.use(routes);
 

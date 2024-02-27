@@ -16,6 +16,9 @@ const userController = {
                 res.status(200).json(data);
             }
         });
+    },
+    signIn: (req, res, next) => {
+        user_service_1.default.signIn(req, (err, data) => err ? next(err) : res.status(200).json(data));
     }
 };
 exports.default = userController;

@@ -16,11 +16,12 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const express_session_1 = __importDefault(require("express-session"));
+const passport_1 = __importDefault(require("./config/passport"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
-const express_session_1 = __importDefault(require("express-session"));
 const connect_flash_1 = __importDefault(require("connect-flash"));
 function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -37,6 +38,8 @@ function startApp() {
                 maxAge: 1000 * 60 * 60 * 24,
             },
         }));
+        app.use(passport_1.default.initialize());
+        app.use(passport_1.default.session());
         app.use((0, connect_flash_1.default)());
         yield (0, index_1.initializeDatabase)();
         app.use(express_1.default.urlencoded({ extended: true }));

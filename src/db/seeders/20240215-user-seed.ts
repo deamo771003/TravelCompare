@@ -2,27 +2,27 @@ import { QueryInterface } from 'sequelize'
 const faker = require('faker')
 import * as bcrypt from 'bcrypt' 
 
-const generatePassword = () => {
-  let password = "";
-  const length = 9;
+const generatePassword = async () => {
+  let password = ""
+  const length = 9
   for (let i = 0; i < length; i++) {
     password += Math.floor(Math.random() * 10)
   }
-  return password;
+  const hashPassword = await bcrypt.hash(password, 10)
+  return hashPassword
 }
 
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
-    const hashPassword = await bcrypt.hash(generatePassword(), 10)
-    const fakeUser = () => ({
+    const fakeUser = async () => ({
       email: faker.internet.email(),
       name: faker.name.findName(),
-      password: hashPassword,
+      password: await generatePassword(),
       admin: false,
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    const users = Array.from({ length: 10 }, () => fakeUser())
+    const users = await Promise.all(Array.from({ length: 10 }, async () => await fakeUser()))
     
     return queryInterface.bulkInsert('Users', users)
   },

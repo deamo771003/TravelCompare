@@ -34,26 +34,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const faker = require('faker');
 const bcrypt = __importStar(require("bcrypt"));
-const generatePassword = () => {
+const generatePassword = () => __awaiter(void 0, void 0, void 0, function* () {
     let password = "";
     const length = 9;
     for (let i = 0; i < length; i++) {
         password += Math.floor(Math.random() * 10);
     }
-    return password;
-};
+    const hashPassword = yield bcrypt.hash(password, 10);
+    return hashPassword;
+});
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        const hashPassword = yield bcrypt.hash(generatePassword(), 10);
-        const fakeUser = () => ({
-            email: faker.internet.email(),
-            name: faker.name.findName(),
-            password: hashPassword,
-            admin: false,
-            createdAt: new Date(),
-            updatedAt: new Date()
+        const fakeUser = () => __awaiter(void 0, void 0, void 0, function* () {
+            return ({
+                email: faker.internet.email(),
+                name: faker.name.findName(),
+                password: yield generatePassword(),
+                admin: false,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            });
         });
-        const users = Array.from({ length: 10 }, () => fakeUser());
+        const users = yield Promise.all(Array.from({ length: 10 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
         return queryInterface.bulkInsert('Users', users);
     }),
     down: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {

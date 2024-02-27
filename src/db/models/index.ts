@@ -57,7 +57,7 @@ export async function initializeDatabase() {
   try {
     await sequelize.authenticate()
     console.log('Connection has been established successfully.')
-    await sequelize.sync() // 欲重跑 model 加入 { force: true }
+    await sequelize.sync({ force: true }) // 欲重跑 model 加入 { force: true }
     console.log('Table created successfully.')
     await runSeeders()
     console.log('runSeeders successfully.')

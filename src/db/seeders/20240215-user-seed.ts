@@ -1,6 +1,6 @@
 import { QueryInterface } from 'sequelize'
-
 const faker = require('faker')
+import * as bcrypt from 'bcrypt' 
 
 const generatePassword = () => {
   let password = "";
@@ -13,10 +13,11 @@ const generatePassword = () => {
 
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
+    const hashPassword = await bcrypt.hash(generatePassword(), 10)
     const fakeUser = () => ({
       email: faker.internet.email(),
       name: faker.name.findName(),
-      password: generatePassword(),
+      password: hashPassword,
       admin: false,
       createdAt: new Date(),
       updatedAt: new Date()

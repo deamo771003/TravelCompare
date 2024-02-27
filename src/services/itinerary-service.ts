@@ -32,7 +32,6 @@ const itineraryService = {
       LEFT JOIN Agencies AS A ON I.agencyId = A.id
       ORDER BY FavoriteCount DESC;
     `
-    
     sequelize.query(query, { model: Itinerary, mapToModel: true })
       .then(itinerary => {
         if (cb) {

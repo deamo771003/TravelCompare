@@ -20,6 +20,8 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./swagger"));
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
+const express_session_1 = __importDefault(require("express-session"));
+const connect_flash_1 = __importDefault(require("connect-flash"));
 function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
@@ -27,6 +29,15 @@ function startApp() {
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)());
+        app.use((0, express_session_1.default)({
+            secret: process.env.SESSION_SECRET,
+            saveUninitialized: true,
+            resave: false,
+            cookie: {
+                maxAge: 1000 * 60 * 60 * 24,
+            },
+        }));
+        app.use((0, connect_flash_1.default)());
         yield (0, index_1.initializeDatabase)();
         app.use(express_1.default.urlencoded({ extended: true }));
         app.use(express_1.default.json());

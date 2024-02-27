@@ -12,9 +12,7 @@ const generatePassword = async () => {
   return hashPassword
 }
 
-module.exports = {
-  up: async (queryInterface: QueryInterface, Sequelize: any) => {
-    const fakeUser = async () => ({
+const fakeUser = async () => ({
       email: faker.internet.email(),
       name: faker.name.findName(),
       password: await generatePassword(),
@@ -22,9 +20,24 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    const users = await Promise.all(Array.from({ length: 10 }, async () => await fakeUser()))
-    
-    return queryInterface.bulkInsert('Users', users)
+
+module.exports = {
+  up: async (queryInterface: QueryInterface, Sequelize: any) => {
+const fakeUsers = await Promise.all(
+      Array.from({ length: 10 }, async () => await fakeUser())
+    )
+    const testUser = async () => ({
+      email: 'root@example.com',
+      name: 'root',
+      password: await bcrypt.hash('123456', 10),
+      admin: true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    })
+    const testUserResult = await testUser()
+    fakeUsers.push(testUserResult)
+
+    return queryInterface.bulkInsert('Users', fakeUsers)
   },
   down: async (queryInterface: QueryInterface, Sequelize: any) => {
     return queryInterface.bulkDelete('Users', {}, {})

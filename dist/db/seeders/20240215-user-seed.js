@@ -43,20 +43,32 @@ const generatePassword = () => __awaiter(void 0, void 0, void 0, function* () {
     const hashPassword = yield bcrypt.hash(password, 10);
     return hashPassword;
 });
+const fakeUser = () => __awaiter(void 0, void 0, void 0, function* () {
+    return ({
+        email: faker.internet.email(),
+        name: faker.name.findName(),
+        password: yield generatePassword(),
+        admin: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    });
+});
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        const fakeUser = () => __awaiter(void 0, void 0, void 0, function* () {
+        const fakeUsers = yield Promise.all(Array.from({ length: 10 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
+        const testUser = () => __awaiter(void 0, void 0, void 0, function* () {
             return ({
-                email: faker.internet.email(),
-                name: faker.name.findName(),
-                password: yield generatePassword(),
-                admin: false,
+                email: 'root@example.com',
+                name: 'root',
+                password: yield bcrypt.hash('123456', 10),
+                admin: true,
                 createdAt: new Date(),
                 updatedAt: new Date()
             });
         });
-        const users = yield Promise.all(Array.from({ length: 10 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
-        return queryInterface.bulkInsert('Users', users);
+        const testUserResult = yield testUser();
+        fakeUsers.push(testUserResult);
+        return queryInterface.bulkInsert('Users', fakeUsers);
     }),
     down: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
         return queryInterface.bulkDelete('Users', {}, {});

@@ -23,10 +23,14 @@ const swagger_1 = __importDefault(require("./swagger"));
 const index_1 = require("./db/models/index");
 const routes_1 = __importDefault(require("./routes"));
 const connect_flash_1 = __importDefault(require("connect-flash"));
+const loadSecrets_1 = require("./helpers/loadSecrets");
 function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
         const port = process.env.PORT || 3000;
+        if (process.env.NODE_ENV == 'production') {
+            yield (0, loadSecrets_1.loadSecrets)();
+        }
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)());

@@ -27,6 +27,8 @@ function loadSecrets() {
             process.env.DB_USERNAME = secrets.LOCAL_DB_USERNAME;
             process.env.DB_PASSWORD = secrets.LOCAL_DB_PASSWORD;
             process.env.DB_HOST = secrets.LOCAL_DB_HOST;
+            process.env.SESSION_SECRET = secrets.SESSION_SECRET;
+            process.env.JWT_SECRET = secrets.JWT_SECRET;
         }
         catch (error) {
             console.error('Failed to load secrets:', error);

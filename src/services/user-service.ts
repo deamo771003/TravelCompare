@@ -2,6 +2,10 @@ import { User as Users } from '../db/models'
 import { SignUpInfo, SignUpResponse } from '../interfaces/user-interface'
 import { CallbackError } from '../interfaces/error-interface'
 import * as jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
+import { loadSecrets } from '../helpers/loadSecrets'
+
 
 const userServices = {
   signup: (
@@ -22,8 +26,11 @@ const userServices = {
       })
       .catch(err => cb(err as CallbackError));
   },
-  signIn: (req: any, cb: any) => {
+  signIn: async (req: any, cb: any) => {
     try {
+      if ( process.env.NODE_ENV == 'production' ) {
+        await loadSecrets()
+      }
       if (!process.env.JWT_SECRET) throw new Error('Undefined JWT_SECRET!')
       const { password, ...userData } = req.body
       const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: '1d' })

@@ -31,7 +31,7 @@ import userController from '../controllers/user-controller'
  *         description: Bad request
  */
 router.post('/users/signin', (req, res, next) => {
-  if (!req.body.account || !req.body.password) return res.status(400).json({ status: 'error', message: "Account and Password is required" })
+  if (!req.body.email || !req.body.password) return res.status(400).json({ status: 'error', message: "Email and Password is required" })
   next()
 },
   passport.authenticate('local', { session: false }), userController.signIn

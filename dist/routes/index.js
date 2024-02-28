@@ -35,8 +35,8 @@ const user_controller_1 = __importDefault(require("../controllers/user-controlle
  *         description: Bad request
  */
 router.post('/users/signin', (req, res, next) => {
-    if (!req.body.account || !req.body.password)
-        return res.status(400).json({ status: 'error', message: "Account and Password is required" });
+    if (!req.body.email || !req.body.password)
+        return res.status(400).json({ status: 'error', message: "Email and Password is required" });
     next();
 }, passport_1.default.authenticate('local', { session: false }), user_controller_1.default.signIn);
 router.use('/users', users_1.default);

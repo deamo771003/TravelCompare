@@ -25,7 +25,7 @@ const itineraryService = {
         SELECT COUNT(*)
         FROM Favorites AS F
         WHERE F.itineraryId = I.id
-      ) AS FavoriteCount
+      ) AS favoriteCount
       FROM Itineraries AS I
       LEFT JOIN Origins AS O ON I.originId = O.id
       LEFT JOIN Countries AS C ON I.countryId = C.id

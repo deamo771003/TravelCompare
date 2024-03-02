@@ -24,7 +24,7 @@ const fakeUser = async () => ({
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
 const fakeUsers = await Promise.all(
-      Array.from({ length: 10 }, async () => await fakeUser())
+      Array.from({ length: 50 }, async () => await fakeUser())
     )
     const testUser = async () => ({
       email: 'root@example.com',

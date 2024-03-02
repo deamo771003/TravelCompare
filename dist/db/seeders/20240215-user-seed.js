@@ -55,7 +55,7 @@ const fakeUser = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
-        const fakeUsers = yield Promise.all(Array.from({ length: 10 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
+        const fakeUsers = yield Promise.all(Array.from({ length: 50 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
         const testUser = () => __awaiter(void 0, void 0, void 0, function* () {
             return ({
                 email: 'root@example.com',

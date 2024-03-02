@@ -19,8 +19,8 @@ module.exports = {
             const generateUniqueFavorite = () => {
                 let itineraryId, userId, key;
                 do {
-                    itineraryId = itineraries[Math.floor(Math.random() * itineraries.length)].id, 10;
-                    userId = users[Math.floor(Math.random() * users.length)].id, 10;
+                    itineraryId = itineraries[Math.floor(Math.random() * itineraries.length)].id;
+                    userId = users[Math.floor(Math.random() * users.length)].id;
                     key = `${itineraryId}-${userId}`;
                 } while (checkFavoriteRepeat[key]);
                 checkFavoriteRepeat[key] = true;
@@ -32,7 +32,7 @@ module.exports = {
                     updatedAt: new Date()
                 };
             };
-            const favorites = Array.from({ length: 20 }, () => generateUniqueFavorite());
+            const favorites = Array.from({ length: 750 }, () => generateUniqueFavorite());
             return queryInterface.bulkInsert('Favorites', favorites);
         }
         catch (error) {

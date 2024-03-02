@@ -87,7 +87,7 @@ function initializeDatabase() {
         try {
             yield sequelize.authenticate();
             console.log('Connection has been established successfully.');
-            yield sequelize.sync(); // 欲重跑 model 加入 { force: true }
+            yield sequelize.sync({ force: true }); // 欲重跑 model 加入 { force: true }
             console.log('Table created successfully.');
             yield runSeeders();
             console.log('runSeeders successfully.');

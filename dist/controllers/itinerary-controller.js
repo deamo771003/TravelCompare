@@ -10,15 +10,18 @@ class BaseController {
     }
 }
 class ItineraryController extends BaseController {
-    getIndexData(req, res, next) {
-        itinerary_service_1.default.getIndexData(req, (err, data) => {
-            if (err) {
-                next(err);
-            }
-            else {
-                this.sendResponses(res, data);
-            }
-        });
+    constructor() {
+        super(...arguments);
+        this.getIndexData = (req, res, next) => {
+            itinerary_service_1.default.getIndexData(req, (err, data) => {
+                if (err) {
+                    next(err);
+                }
+                else {
+                    this.sendResponses(res, data);
+                }
+            });
+        };
     }
 }
 // const itineraryController = {
@@ -32,4 +35,4 @@ class ItineraryController extends BaseController {
 //     })
 //   }
 // }
-exports.default = new ItineraryController;
+exports.default = new ItineraryController();

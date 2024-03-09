@@ -24,7 +24,7 @@ class BaseController {
 }
 
 class ItineraryController extends BaseController {
-  public getIndexData(req: Request, res: Response, next: NextFunction): void {
+  public getIndexData = (req: Request, res: Response, next: NextFunction): void => {
     itineraryService.getIndexData(req, (err: CallbackError | null, data?: getIndexData[]) => {
       if (err) {
         next(err)
@@ -46,4 +46,4 @@ class ItineraryController extends BaseController {
 //   }
 // }
 
-export default new ItineraryController
+export default new ItineraryController()

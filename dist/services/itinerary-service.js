@@ -30,11 +30,13 @@ const itineraryService = {
       ORDER BY FavoriteCount DESC;
     `;
         models_1.sequelize.query(query, { model: models_1.Itinerary, mapToModel: true })
-            .then(itinerary => {
+            //! any 需調整，db query 出來的資料似乎還有其他東西，不只有我需求資料
+            //! 也可能是 TS 無法判別 db query 出的資料型別有哪些導致錯誤
+            .then((itineraries) => {
             if (cb) {
                 cb(null, {
                     status: 'success',
-                    user: itinerary
+                    user: itineraries
                 });
             }
         })

@@ -2,22 +2,31 @@ import { Request, Response, NextFunction } from 'express'
 import userService from '../services/user-service'
 import { SignUpInfo, SignUpResponse } from '../interfaces/user-interface'
 import { CallbackError } from '../interfaces/error-interface'
+import { BaseController } from './baseController'
 
-const userController = {
-  signup: (req: Request, res: Response, next: NextFunction) => {
+interface signInUserData {
+  email: string
+}
+
+interface signInData {
+  token: number
+  userData: signInUserData
+}
+
+class userController extends BaseController {
+  public signup = (req: Request, res: Response, next: NextFunction) => {
     const { username, password } = req.body;
     const signUpInfo: SignUpInfo = { username, password };
     userService.signup(signUpInfo, (err: CallbackError | null, data?: SignUpResponse) => {
-      if (err) {
-        next(err)
-      } else {
-        res.status(200).json(data)
-      }
+      err ? next(err) : this.sendResponses(res, data)
     })
-  },
-  signIn: (req: Request, res: Response, next: NextFunction) => {
-    userService.signIn(req, (err: CallbackError | null, data?: any) => err ? next(err) : res.status(200).json(data) )
+  }
+
+  public signIn = (req: Request, res: Response, next: NextFunction) => {
+    userService.signIn(req, (err: CallbackError | null, data?: signInData) => {
+      err ? next(err) : this.sendResponses(res, data)
+    })
   }
 }
 
-export default userController
+export default new userController()

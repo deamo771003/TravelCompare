@@ -1,42 +1,32 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-function getEnvOrSecret(key) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const value = process.env[key];
-        if (value) {
-            return value;
-        }
-        throw new Error(`Environment variable ${key} is not defined`);
-    });
+function getEnvOrSecret(env) {
+    const value = process.env[env];
+    if (value) {
+        return value;
+    }
+    throw new Error(`Environment variable ${env} is not defined`);
 }
-module.exports = {
+const config = {
     development: {
         database: getEnvOrSecret('DB_DATABASE'),
         username: getEnvOrSecret('DB_USERNAME'),
         password: getEnvOrSecret('DB_PASSWORD'),
         host: getEnvOrSecret('DB_HOST'),
         dialect: 'mssql',
-        port: 1433
+        port: 1433,
     },
     production: {
         host: getEnvOrSecret('AWS_DB_HOST'),
         username: getEnvOrSecret('AWS_DB_USERNAME'),
         password: getEnvOrSecret('AWS_DB_PASSWORD'),
         database: getEnvOrSecret('AWS_DB_DATABASE'),
-        dialect: 'mssql'
-    }
+        dialect: 'mssql',
+    },
 };
+module.exports = config;

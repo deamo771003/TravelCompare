@@ -4,16 +4,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const itinerary_service_1 = __importDefault(require("../services/itinerary-service"));
-const itineraryController = {
-    getIndexData: (req, res, next) => {
+class BaseController {
+    sendResponses(res, data, statusCode = 200) {
+        res.status(statusCode).json(data);
+    }
+}
+class ItineraryController extends BaseController {
+    getIndexData(req, res, next) {
         itinerary_service_1.default.getIndexData(req, (err, data) => {
             if (err) {
                 next(err);
             }
             else {
-                res.status(200).json(data);
+                this.sendResponses(res, data);
             }
         });
     }
-};
-exports.default = itineraryController;
+}
+// const itineraryController = {
+//   getIndexData: (req: Request, res: Response, next: NextFunction) => {
+//     itineraryService.getIndexData(req, (err: CallbackError | null, data?: getIndexData) => {
+//       if (err) {
+//         next(err)
+//       } else {
+//         res.status(200).json(data)
+//       }
+//     })
+//   }
+// }
+exports.default = new ItineraryController;

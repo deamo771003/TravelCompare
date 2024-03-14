@@ -3,11 +3,11 @@ export interface ConfigInterface {
   production: DatabaseConfig;
 }
 
-interface DatabaseConfig {
+export interface DatabaseConfig {
   database: string;
   username: string;
   password: string;
   host: string;
   dialect: 'mssql';
-  port: number;
+  port?: number;
 }

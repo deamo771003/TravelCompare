@@ -56,18 +56,15 @@ const fakeUser = () => __awaiter(void 0, void 0, void 0, function* () {
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
         const fakeUsers = yield Promise.all(Array.from({ length: 50 }, () => __awaiter(void 0, void 0, void 0, function* () { return yield fakeUser(); })));
-        const testUser = () => __awaiter(void 0, void 0, void 0, function* () {
-            return ({
-                email: 'root@example.com',
-                name: 'root',
-                password: yield bcrypt.hash('123456', 10),
-                admin: true,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            });
-        });
-        const testUserResult = yield testUser();
-        fakeUsers.push(testUserResult);
+        const testUser = {
+            email: 'root@example.com',
+            name: 'root',
+            password: yield bcrypt.hash('123456', 10),
+            admin: true,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        };
+        fakeUsers.push(testUser);
         return queryInterface.bulkInsert('Users', fakeUsers);
     }),
     down: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {

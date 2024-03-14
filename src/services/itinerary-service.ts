@@ -1,14 +1,13 @@
 import { Request } from 'express'
 import { CallbackError } from '../interfaces/error-interface'
 import { Itinerary, sequelize } from '../db/models'
-import { getIndexDataSuccessRes } from '../interfaces/itinerary-interface'
-
-type SuccessCallback = (err: CallbackError | null, data?: getIndexDataSuccessRes) => void
+import { getIndexData, getIndexDataSuccessRes } from '../interfaces/itinerary-interface'
 
 const itineraryService = {
-  getIndexData: (req?: Request, cb?: SuccessCallback) => {
-    // 抓出前10 名最多人加入Favorite 的Itinerary
-    // 取出Itinerary 表include model Favorite.count
+  //! HTTP 請求回傳的資料通常會用 cb ，所以箭頭函式沒有 return 任何值，故給函數返回類型是 void
+  getIndexData: (req: Request, cb: (err?: CallbackError | null, data?: getIndexDataSuccessRes) => void) => {
+    // 抓出前 10 名最多人加入 Favorite 的 Itinerary
+    // 取出 Itinerary 表 include model Favorite.count
     const query = `
       SELECT TOP 10 
       I.id,
@@ -34,20 +33,15 @@ const itineraryService = {
       ORDER BY FavoriteCount DESC;
     `
     sequelize.query(query, { model: Itinerary, mapToModel: true })
-      //! any 需調整，db query 出來的資料似乎還有其他東西，不只有我需求資料
-      //! 也可能是 TS 無法判別 db query 出的資料型別有哪些導致錯誤
+      //! TS 無法判別 db query 出的資料型別有哪些只能使用 any，在 cb 再行定義
       .then((itineraries: any) => {
-        if (cb) {
           cb(null, {
           status: 'success',
-          user: itineraries
+          user: itineraries as getIndexData[]
         })
-        }
       })
       .catch(err => {
-        if (cb) {
-          cb(err as CallbackError)
-        }
+          cb(err)
       })
   }
 }

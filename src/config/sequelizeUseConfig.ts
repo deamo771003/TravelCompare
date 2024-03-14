@@ -1,14 +1,6 @@
 import dotenv from 'dotenv'
 dotenv.config()
-
-interface configInterface {
-  database: string
-  username: string
-  password: string
-  host: string
-  dialect: 'mssql'
-  port?: number
-}
+import { DatabaseConfig } from '../interfaces/config-interface'
 
 function getEnvOrSecret(env: string): string {
   const value = process.env[env]
@@ -18,7 +10,7 @@ function getEnvOrSecret(env: string): string {
   throw new Error(`Environment variable ${env} is not defined`)
 }
 
-const config: Record<string, configInterface> = {
+const config: Record<string, DatabaseConfig> = {
   development: {
     database: getEnvOrSecret('DB_DATABASE'),
     username: getEnvOrSecret('DB_USERNAME'),

@@ -11,6 +11,7 @@ import { Country } from './country'
 import { Agency } from './agency'
 import { loadSecrets } from '../../helpers/loadSecrets'
 import { getDatabaseConfig } from '../../config/config'
+import { DatabaseConfig } from '../../interfaces/config-interface'
 
 let sequelize: Sequelize;
 // 導入seeders
@@ -47,8 +48,9 @@ export async function initializeDatabase() {
   if (process.env.NODE_ENV === 'production') {
     await loadSecrets()
   }
-  const env = process.env.NODE_ENV as keyof typeof getDatabaseConfig | 'development';
-  const dbConfig = getDatabaseConfig(env)
+  type NodeEnv = 'development' | 'production' | 'test'
+  const env: NodeEnv = process.env.NODE_ENV as NodeEnv || 'development';
+  const dbConfig: DatabaseConfig = getDatabaseConfig(env)
   sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
     host: dbConfig.host,
     dialect: dbConfig.dialect,

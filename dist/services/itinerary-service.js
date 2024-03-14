@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../db/models");
 const itineraryService = {
+    //! HTTP 請求回傳的資料通常會用 cb ，所以箭頭函式沒有 return 任何值，故給函數返回類型是 void
     getIndexData: (req, cb) => {
-        // 抓出前10 名最多人加入Favorite 的Itinerary
-        // 取出Itinerary 表include model Favorite.count
+        // 抓出前 10 名最多人加入 Favorite 的 Itinerary
+        // 取出 Itinerary 表 include model Favorite.count
         const query = `
       SELECT TOP 10 
       I.id,
@@ -30,20 +31,15 @@ const itineraryService = {
       ORDER BY FavoriteCount DESC;
     `;
         models_1.sequelize.query(query, { model: models_1.Itinerary, mapToModel: true })
-            //! any 需調整，db query 出來的資料似乎還有其他東西，不只有我需求資料
-            //! 也可能是 TS 無法判別 db query 出的資料型別有哪些導致錯誤
+            //! TS 無法判別 db query 出的資料型別有哪些只能使用 any，在 cb 再行定義
             .then((itineraries) => {
-            if (cb) {
-                cb(null, {
-                    status: 'success',
-                    user: itineraries
-                });
-            }
+            cb(null, {
+                status: 'success',
+                user: itineraries
+            });
         })
             .catch(err => {
-            if (cb) {
-                cb(err);
-            }
+            cb(err);
         });
     }
 };

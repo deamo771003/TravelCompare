@@ -77,7 +77,7 @@ function initializeDatabase() {
         if (process.env.NODE_ENV === 'production') {
             yield (0, loadSecrets_1.loadSecrets)();
         }
-        const env = process.env.NODE_ENV;
+        const env = process.env.NODE_ENV || 'development';
         const dbConfig = (0, config_1.getDatabaseConfig)(env);
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,

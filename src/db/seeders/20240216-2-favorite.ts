@@ -36,7 +36,7 @@ module.exports = {
         key = `${itineraryId}-${userId}`
       } while (checkFavoriteRepeat[key])
       checkFavoriteRepeat[key] = true
-
+      
       return {
         visited: booleans[Math.floor(Math.random() * 2)],
         userId: userId,

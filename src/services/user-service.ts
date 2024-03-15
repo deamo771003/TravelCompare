@@ -1,11 +1,11 @@
+import { Request } from 'express'
 import { User as Users } from '../db/models'
-import { SignUpInfo, SignUpResponse } from '../interfaces/user-interface'
+import { SignUpInfo, SignUpResponse, SignInDataSuccessRes } from '../interfaces/user-interface'
 import { CallbackError } from '../interfaces/error-interface'
 import * as jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config()
 import { loadSecrets } from '../helpers/loadSecrets'
-
 
 const userServices = {
   signup: (
@@ -26,7 +26,7 @@ const userServices = {
       })
       .catch(err => cb(err as CallbackError));
   },
-  signIn: async (req: any, cb: any) => {
+  signIn: async (req: Request, cb: (err?: CallbackError | null, data?: SignInDataSuccessRes) => void) => {
     try {
       if ( process.env.NODE_ENV == 'production' ) {
         await loadSecrets()
@@ -42,7 +42,7 @@ const userServices = {
         }
       })
     } catch (err) {
-      cb(err)
+      cb(err as CallbackError)
     }
   }
 }

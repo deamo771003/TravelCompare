@@ -29,6 +29,4 @@ import userController from '../../controllers/user-controller'
 //  */
 router.post('/signup', userController.signup)
 
-
-
 export default router

@@ -1,11 +1,11 @@
 import { Request } from 'express'
 import { CallbackError } from '../interfaces/error-interface'
 import { Itinerary, sequelize } from '../db/models'
-import { getIndexData, getIndexDataSuccessRes } from '../interfaces/itinerary-interface'
+import { GetIndexData, GetIndexDataSuccessRes } from '../interfaces/itinerary-interface'
 
 const itineraryService = {
   //! HTTP 請求回傳的資料通常會用 cb ，所以箭頭函式沒有 return 任何值，故給函數返回類型是 void
-  getIndexData: (req: Request, cb: (err?: CallbackError | null, data?: getIndexDataSuccessRes) => void) => {
+  getIndexData: (req: Request, cb: (err?: CallbackError | null, data?: GetIndexDataSuccessRes) => void) => {
     // 抓出前 10 名最多人加入 Favorite 的 Itinerary
     // 取出 Itinerary 表 include model Favorite.count
     const query = `
@@ -37,7 +37,7 @@ const itineraryService = {
       .then((itineraries: any) => {
           cb(null, {
           status: 'success',
-          user: itineraries as getIndexData[]
+          user: itineraries as GetIndexData[]
         })
       })
       .catch(err => {

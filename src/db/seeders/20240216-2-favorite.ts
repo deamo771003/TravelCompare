@@ -1,25 +1,38 @@
 import { QueryInterface } from 'sequelize'
-const booleans = [true, false]
-let checkFavoriteRepeat: { [key:string]: boolean } = {}
+import { IdType } from '../../interfaces/dbTable-interface'
+
+interface GenerateUniqueFavorite {
+  visited: boolean
+  userId: number
+  itineraryId: number
+  createdAt: Date
+  updatedAt: Date
+}
 
 module.exports = {
   up: async (queryInterface: QueryInterface, Sequelize: any) => {
     try {
-    const itineraries = await queryInterface.sequelize.query(
+    const itinerariesResult = await queryInterface.sequelize.query(
       'SELECT id FROM Itineraries;',
       { type: Sequelize.QueryTypes.SELECT }
-      ) as unknown as [{ id: string; }[], any]
+      )
+      const itineraries: IdType[] = itinerariesResult[0] ? itinerariesResult[0] : []
 
-    const users = await queryInterface.sequelize.query(
+    const usersResult = await queryInterface.sequelize.query(
       'SELECT id FROM Users;',
       { type: Sequelize.QueryTypes.SELECT }
-      ) as unknown as [{ id: string; }[], any]
+      )
+      const users: IdType[] = usersResult[0] ? usersResult[0] : []
 
-    const generateUniqueFavorite = () => {
-      let itineraryId, userId, key
+    let checkFavoriteRepeat: { [key: string]: boolean } = {}
+    const booleans: boolean[] = [true, false]
+    const generateUniqueFavorite = (): GenerateUniqueFavorite => {
+      let itineraryId: number, userId: number, key: string
       do {
-        itineraryId = itineraries[Math.floor(Math.random() * itineraries.length)].id
-        userId = users[Math.floor(Math.random() * users.length)].id
+        const itinerariesRandom: IdType = itineraries[Math.floor(Math.random() * itineraries.length)]
+        itineraryId = itinerariesRandom.id
+        const userIdRandom: IdType = users[Math.floor(Math.random() * users.length)]
+        userId = userIdRandom.id
         key = `${itineraryId}-${userId}`
       } while (checkFavoriteRepeat[key])
       checkFavoriteRepeat[key] = true

@@ -1,10 +1,7 @@
 import { QueryInterface } from 'sequelize'
+import { IdType } from '../../interfaces/dbTable-interface'
 const faker = require('faker')
 const booleans = [true, false]
-
-interface IdType {
-  id: number
-}
 
 interface UserData {
   name: string

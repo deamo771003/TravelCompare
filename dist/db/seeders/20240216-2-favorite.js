@@ -9,18 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const booleans = [true, false];
-let checkFavoriteRepeat = {};
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const itineraries = yield queryInterface.sequelize.query('SELECT id FROM Itineraries;', { type: Sequelize.QueryTypes.SELECT });
-            const users = yield queryInterface.sequelize.query('SELECT id FROM Users;', { type: Sequelize.QueryTypes.SELECT });
+            const itinerariesResult = yield queryInterface.sequelize.query('SELECT id FROM Itineraries;', { type: Sequelize.QueryTypes.SELECT });
+            const itineraries = itinerariesResult[0] ? itinerariesResult[0] : [];
+            const usersResult = yield queryInterface.sequelize.query('SELECT id FROM Users;', { type: Sequelize.QueryTypes.SELECT });
+            const users = usersResult[0] ? usersResult[0] : [];
+            let checkFavoriteRepeat = {};
+            const booleans = [true, false];
             const generateUniqueFavorite = () => {
                 let itineraryId, userId, key;
                 do {
-                    itineraryId = itineraries[Math.floor(Math.random() * itineraries.length)].id;
-                    userId = users[Math.floor(Math.random() * users.length)].id;
+                    const itinerariesRandom = itineraries[Math.floor(Math.random() * itineraries.length)];
+                    itineraryId = itinerariesRandom.id;
+                    const userIdRandom = users[Math.floor(Math.random() * users.length)];
+                    userId = userIdRandom.id;
                     key = `${itineraryId}-${userId}`;
                 } while (checkFavoriteRepeat[key]);
                 checkFavoriteRepeat[key] = true;

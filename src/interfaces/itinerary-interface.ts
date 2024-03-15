@@ -1,4 +1,4 @@
-export interface getIndexData {
+export interface GetIndexData {
   id: number
   name: string
   startDate: string
@@ -13,7 +13,7 @@ export interface getIndexData {
   favoriteCount: number
 }
 
-export interface getIndexDataSuccessRes {
+export interface GetIndexDataSuccessRes {
   status: string
-  user: getIndexData[]
+  user: GetIndexData[]
 }

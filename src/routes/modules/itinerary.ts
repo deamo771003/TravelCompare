@@ -6,6 +6,8 @@ import itineraryController from '../../controllers/itinerary-controller'
  * @swagger
  * /itinerary/getIndexData:
  *   get:
+ *     tags:
+ *       - Itineraries
  *     summary: get index data
  *     responses:
  *       200:

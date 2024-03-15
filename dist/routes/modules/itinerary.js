@@ -10,6 +10,8 @@ const itinerary_controller_1 = __importDefault(require("../../controllers/itiner
  * @swagger
  * /itinerary/getIndexData:
  *   get:
+ *     tags:
+ *       - Itineraries
  *     summary: get index data
  *     responses:
  *       200:

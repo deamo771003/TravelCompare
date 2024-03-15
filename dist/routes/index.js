@@ -14,6 +14,8 @@ const error_handler_1 = require("../middlewares/error-handler");
  * @swagger
  * /users/signin:
  *   post:
+ *     tags:
+ *       - Users
  *     summary: Sign in
  *     requestBody:
  *       required: true
@@ -35,11 +37,7 @@ const error_handler_1 = require("../middlewares/error-handler");
  *       400:
  *         description: Email or Password does not exist!
  *       401:
- *         description: Unauthorized due to invalid credentials
- *       403:
- *         description: Access is forbidden to the requested resource
- *       422:
- *         description: Unprocessable entity, data validation failed
+ *         description: Incorrect account or password!
  *       500:
  *         description: Internal server error
  */

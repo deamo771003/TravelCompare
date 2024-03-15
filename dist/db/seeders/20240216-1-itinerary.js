@@ -14,9 +14,13 @@ const booleans = [true, false];
 module.exports = {
     up: (queryInterface, Sequelize) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const origins = yield queryInterface.sequelize.query('SELECT id FROM Origins;', { type: Sequelize.QueryTypes.SELECT });
-            const countries = yield queryInterface.sequelize.query('SELECT id FROM Countries;', { type: Sequelize.QueryTypes.SELECT });
-            const agencies = yield queryInterface.sequelize.query('SELECT id FROM Agencies;', { type: Sequelize.QueryTypes.SELECT });
+            const originsResult = yield queryInterface.sequelize.query('SELECT id FROM Origins;', { type: Sequelize.QueryTypes.SELECT });
+            //! TS 無法辨識 query 資料，故先 query 再另行定義資料 type，並判斷 query 是否為空
+            const origins = originsResult[0] ? originsResult[0] : [];
+            const countriesResult = yield queryInterface.sequelize.query('SELECT id FROM Countries;', { type: Sequelize.QueryTypes.SELECT });
+            const countries = countriesResult[0] ? countriesResult[0] : [];
+            const agenciesResult = yield queryInterface.sequelize.query('SELECT id FROM Agencies;', { type: Sequelize.QueryTypes.SELECT });
+            const agencies = agenciesResult[0] ? agenciesResult[0] : [];
             let userData = [];
             for (let i = 1; i <= 30; i++) {
                 const startDate = faker.date.future(0.1);

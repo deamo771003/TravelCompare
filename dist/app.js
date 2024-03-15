@@ -27,13 +27,16 @@ const loadSecrets_1 = require("./helpers/loadSecrets");
 function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = (0, express_1.default)();
-        const port = process.env.PORT || 3000;
+        const port = Number(process.env.PORT) || 3000;
         if (process.env.NODE_ENV == 'production') {
             yield (0, loadSecrets_1.loadSecrets)();
         }
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)());
+        if (!process.env.SESSION_SECRET) {
+            throw new Error('SESSION_SECRET is not defined');
+        }
         app.use((0, express_session_1.default)({
             secret: process.env.SESSION_SECRET,
             saveUninitialized: true,

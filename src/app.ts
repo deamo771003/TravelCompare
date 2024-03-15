@@ -11,9 +11,9 @@ import routes from './routes'
 import flash from 'connect-flash'
 import { loadSecrets } from './helpers/loadSecrets'
 
-async function startApp() {
+async function startApp(): Promise<void> {
   const app = express()
-  const port = process.env.PORT || 3000
+  const port: number = Number(process.env.PORT) || 3000
   
   if ( process.env.NODE_ENV == 'production' ) {
     await loadSecrets()
@@ -23,8 +23,11 @@ async function startApp() {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
   app.use(cors())
 
+  if (!process.env.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET is not defined')
+  }
   app.use(session({
-  secret: process.env.SESSION_SECRET!,
+  secret: process.env.SESSION_SECRET,
   saveUninitialized: true,
   resave: false,
   cookie: {

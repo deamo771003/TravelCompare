@@ -10,12 +10,7 @@ class ItineraryController extends baseController_1.BaseController {
         super(...arguments);
         this.getIndexData = (req, res, next) => {
             itinerary_service_1.default.getIndexData(req, (err, data) => {
-                if (err) {
-                    next(err);
-                }
-                else {
-                    this.sendResponses(res, data);
-                }
+                err ? next(err) : this.sendResponses(res, data);
             });
         };
     }

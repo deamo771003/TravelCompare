@@ -42,11 +42,11 @@ passport_1.default.use(new passport_local_1.Strategy(
     models_1.User.findOne({ where: { email } })
         .then((user) => {
         if (!user)
-            return cb(null, false, { message: 'Incorrect account or password!' });
+            return cb('Incorrect account or password!');
         bcrypt.compare(password, user.password)
             .then(res => {
             if (!res)
-                return cb(null, false, { message: 'Incorrect account or password!' });
+                return cb('Incorrect account or password!');
             return cb(null, user);
         });
     })

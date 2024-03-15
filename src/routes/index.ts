@@ -4,6 +4,7 @@ import users from './modules/users'
 import itinerary from './modules/itinerary'
 import passport from 'passport'
 import userController from '../controllers/user-controller'
+import { apiErrorHandler } from '../middlewares/error-handler'
 
 /**
  * @swagger
@@ -28,7 +29,15 @@ import userController from '../controllers/user-controller'
  *       200:
  *         description: User successfully sign in
  *       400:
- *         description: Bad request
+ *         description: Email or Password does not exist!
+ *       401:
+ *         description: Unauthorized due to invalid credentials
+ *       403:
+ *         description: Access is forbidden to the requested resource
+ *       422:
+ *         description: Unprocessable entity, data validation failed
+ *       500:
+ *         description: Internal server error
  */
 router.post('/users/signin', (req, res, next) => {
   if (!req.body.email || !req.body.password) return res.status(400).json({ status: 'error', message: "Email and Password is required" })
@@ -38,5 +47,6 @@ router.post('/users/signin', (req, res, next) => {
 )
 router.use('/users', users)
 router.use('/itinerary', itinerary)
+router.use('/', apiErrorHandler)
 
 export default router

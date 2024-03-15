@@ -22,10 +22,10 @@ passport.use(new LocalStrategy(
   (req, email, password, cb) => {
     User.findOne({ where: { email } })
       .then((user: userTable | null)  => {
-        if (!user) return cb(null, false, { message:'Incorrect account or password!' })
+        if (!user) return cb('Incorrect account or password!')
         bcrypt.compare(password, user.password)
           .then(res => {
-            if (!res) return cb(null, false, { message: 'Incorrect account or password!'})
+            if (!res) return cb('Incorrect account or password!')
             return cb(null, user)
           })
       })

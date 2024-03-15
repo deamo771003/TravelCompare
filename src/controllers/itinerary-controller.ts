@@ -7,11 +7,7 @@ import { GetIndexDataSuccessRes } from '../interfaces/itinerary-interface'
 class ItineraryController extends BaseController {
   public getIndexData = (req: Request, res: Response, next: NextFunction): void => {
     itineraryService.getIndexData(req, (err?: CallbackError | null, data?: GetIndexDataSuccessRes) => {
-      if (err) {
-        next(err)
-      } else {
-        this.sendResponses(res, data)
-      }
+      err ? next(err) : this.sendResponses(res, data)
     })
   }
 }

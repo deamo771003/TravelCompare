@@ -11,7 +11,7 @@ import itineraryController from '../../controllers/itinerary-controller'
  *       200:
  *         description: Success
  *       400:
- *         description: Bad request
+ *         description: Bad request due to missing or invalid parameters
  */
 router.get('/getIndexData',itineraryController.getIndexData)
 

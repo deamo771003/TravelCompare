@@ -15,7 +15,7 @@ const itinerary_controller_1 = __importDefault(require("../../controllers/itiner
  *       200:
  *         description: Success
  *       400:
- *         description: Bad request
+ *         description: Bad request due to missing or invalid parameters
  */
 router.get('/getIndexData', itinerary_controller_1.default.getIndexData);
 exports.default = router;

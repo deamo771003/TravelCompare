@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import userService from '../services/user-service'
-import { SignUpInfo, SignUpResponse } from '../interfaces/user-interface'
+import { SignUpInfo, SignUpResponse, SignInDataSuccessRes } from '../interfaces/user-interface'
 import { CallbackError } from '../interfaces/error-interface'
 import { BaseController } from './baseController'
 
@@ -23,7 +23,7 @@ class userController extends BaseController {
   }
 
   public signIn = (req: Request, res: Response, next: NextFunction) => {
-    userService.signIn(req, (err: CallbackError | null, data?: signInData) => {
+    userService.signIn(req, (err?: CallbackError | null, data?: SignInDataSuccessRes) => {
       err ? next(err) : this.sendResponses(res, data)
     })
   }

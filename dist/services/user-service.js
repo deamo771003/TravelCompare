@@ -50,7 +50,6 @@ const models_1 = require("../db/models");
 const jwt = __importStar(require("jsonwebtoken"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-const loadSecrets_1 = require("../helpers/loadSecrets");
 const userServices = {
     signup: ({ username, password }, cb) => {
         models_1.User.create({
@@ -69,9 +68,6 @@ const userServices = {
     },
     signIn: (req, cb) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            if (process.env.NODE_ENV == 'production') {
-                yield (0, loadSecrets_1.loadSecrets)();
-            }
             if (!process.env.JWT_SECRET)
                 throw new Error('Undefined JWT_SECRET!');
             const _a = req.body, { password } = _a, userData = __rest(_a, ["password"]);

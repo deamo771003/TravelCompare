@@ -9,8 +9,7 @@ import { Itinerary } from './itinerary'
 import { Origin } from './origin'
 import { Country } from './country'
 import { Agency } from './agency'
-import { loadSecrets } from '../../helpers/loadSecrets'
-import { getDatabaseConfig } from '../../config/config'
+const config = require('../../config/config')
 import { DatabaseConfig } from '../../interfaces/config-interface'
 
 let sequelize: Sequelize;
@@ -45,16 +44,14 @@ async function runSeeders() {
 
 // ORM 初始化 DB
 export async function initializeDatabase() {
-  if (process.env.NODE_ENV === 'production') {
-    await loadSecrets()
-  }
   type NodeEnv = 'development' | 'production' | 'test'
   const env: NodeEnv = process.env.NODE_ENV as NodeEnv || 'development';
-  const dbConfig: DatabaseConfig = getDatabaseConfig(env)
+  const dbConfig: DatabaseConfig = config[env]
   sequelize = new Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
     host: dbConfig.host,
     dialect: dbConfig.dialect,
     models: [User, Favorite, Star, Comment, Itinerary, Origin, Country, Agency],
+    logging: false
   })
   try {
     await sequelize.authenticate()

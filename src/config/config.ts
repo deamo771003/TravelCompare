@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
+import dotenv from 'dotenv'
 dotenv.config();
 
-interface getDatabaseConfig {
+interface DatabaseConfig {
   database: string
   username: string
   password: string
@@ -10,32 +10,23 @@ interface getDatabaseConfig {
   port?: number
 }
 
-function getEnvOrSecret(key: string): string {
-  const value = process.env[key];
-  if (value) {
-    return value;
+const config: { development: DatabaseConfig; production: DatabaseConfig } = {
+  development: {
+    database: process.env.DB_DATABASE || '',
+    username: process.env.DB_USERNAME || '',
+    password: process.env.DB_PASSWORD || '',
+    host: process.env.DB_HOST || '',
+    dialect: 'mssql',
+    port: 1433
+  },
+  production: {
+    database: process.env.DB_DATABASE || '',
+    username: process.env.DB_USERNAME || '',
+    password: process.env.DB_PASSWORD || '',
+    host: process.env.DB_HOST || '',
+    dialect: 'mssql'
   }
-  throw new Error(`Environment variable ${key} is not defined`);
 }
 
-export function getDatabaseConfig(env: string): getDatabaseConfig { 
-  const configs: { [key: string]: getDatabaseConfig } = {
-    development: {
-      database: getEnvOrSecret('DB_DATABASE'),
-      username: getEnvOrSecret('DB_USERNAME'),
-      password: getEnvOrSecret('DB_PASSWORD'),
-      host: getEnvOrSecret('DB_HOST'),
-      dialect: 'mssql',
-      port: 1433
-    },
-    production: {
-      host: getEnvOrSecret('AWS_DB_HOST'),
-      username: getEnvOrSecret('AWS_DB_USERNAME'),
-      password: getEnvOrSecret('AWS_DB_PASSWORD'),
-      database: getEnvOrSecret('AWS_DB_DATABASE'),
-      dialect: 'mssql'
-    }
-  };
-  
-  return configs[env as keyof typeof configs];
-}
+module.exports = config;
+

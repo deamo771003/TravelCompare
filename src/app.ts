@@ -9,19 +9,17 @@ import swaggerSpec from './swagger'
 import { initializeDatabase } from './db/models/index'
 import routes from './routes'
 import flash from 'connect-flash'
-import { loadSecrets } from './helpers/loadSecrets'
 
 async function startApp(): Promise<void> {
   const app = express()
   const port: number = Number(process.env.PORT) || 3000
-  
-  if ( process.env.NODE_ENV == 'production' ) {
-    await loadSecrets()
-  }
 
   // Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-  app.use(cors())
+  app.use(cors({
+    origin: ['https://huang-bai.github.io/TravelCompare', 'http://localhost:3000'],
+    credentials: true
+  }))
 
   if (!process.env.SESSION_SECRET) {
     throw new Error('SESSION_SECRET is not defined')

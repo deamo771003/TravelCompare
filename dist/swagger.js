@@ -10,7 +10,7 @@ dotenv_1.default.config();
 const port = process.env.PORT || 3000;
 let url;
 let description;
-if (process.env.AWS_URL !== 'test') {
+if (process.env.NODE_ENV !== 'development') {
     url = 'https://www.travelcompare.store';
     description = 'AWS_server';
 }

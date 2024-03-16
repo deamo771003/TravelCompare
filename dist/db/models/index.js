@@ -38,8 +38,7 @@ const itinerary_1 = require("./itinerary");
 const origin_1 = require("./origin");
 const country_1 = require("./country");
 const agency_1 = require("./agency");
-const loadSecrets_1 = require("../../helpers/loadSecrets");
-const config_1 = require("../../config/config");
+const config = require('../../config/config');
 let sequelize;
 // 導入seeders
 const originSeed = require('../seeders/20240210-origin-seed');
@@ -74,15 +73,13 @@ function runSeeders() {
 // ORM 初始化 DB
 function initializeDatabase() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (process.env.NODE_ENV === 'production') {
-            yield (0, loadSecrets_1.loadSecrets)();
-        }
         const env = process.env.NODE_ENV || 'development';
-        const dbConfig = (0, config_1.getDatabaseConfig)(env);
+        const dbConfig = config[env];
         exports.sequelize = sequelize = new sequelize_typescript_1.Sequelize(dbConfig.database, dbConfig.username, dbConfig.password, {
             host: dbConfig.host,
             dialect: dbConfig.dialect,
             models: [user_1.User, favorite_1.Favorite, star_1.Star, comment_1.Comment, itinerary_1.Itinerary, origin_1.Origin, country_1.Country, agency_1.Agency],
+            logging: false
         });
         try {
             yield sequelize.authenticate();

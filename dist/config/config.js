@@ -3,34 +3,23 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getDatabaseConfig = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
-function getEnvOrSecret(key) {
-    const value = process.env[key];
-    if (value) {
-        return value;
+const config = {
+    development: {
+        database: process.env.DB_DATABASE || '',
+        username: process.env.DB_USERNAME || '',
+        password: process.env.DB_PASSWORD || '',
+        host: process.env.DB_HOST || '',
+        dialect: 'mssql',
+        port: 1433
+    },
+    production: {
+        database: process.env.DB_DATABASE || '',
+        username: process.env.DB_USERNAME || '',
+        password: process.env.DB_PASSWORD || '',
+        host: process.env.DB_HOST || '',
+        dialect: 'mssql'
     }
-    throw new Error(`Environment variable ${key} is not defined`);
-}
-function getDatabaseConfig(env) {
-    const configs = {
-        development: {
-            database: getEnvOrSecret('DB_DATABASE'),
-            username: getEnvOrSecret('DB_USERNAME'),
-            password: getEnvOrSecret('DB_PASSWORD'),
-            host: getEnvOrSecret('DB_HOST'),
-            dialect: 'mssql',
-            port: 1433
-        },
-        production: {
-            host: getEnvOrSecret('AWS_DB_HOST'),
-            username: getEnvOrSecret('AWS_DB_USERNAME'),
-            password: getEnvOrSecret('AWS_DB_PASSWORD'),
-            database: getEnvOrSecret('AWS_DB_DATABASE'),
-            dialect: 'mssql'
-        }
-    };
-    return configs[env];
-}
-exports.getDatabaseConfig = getDatabaseConfig;
+};
+module.exports = config;

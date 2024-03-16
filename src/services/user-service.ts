@@ -5,7 +5,6 @@ import { CallbackError } from '../interfaces/error-interface'
 import * as jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 dotenv.config()
-import { loadSecrets } from '../helpers/loadSecrets'
 
 const userServices = {
   signup: (
@@ -28,9 +27,6 @@ const userServices = {
   },
   signIn: async (req: Request, cb: (err?: CallbackError | null, data?: SignInDataSuccessRes) => void) => {
     try {
-      if ( process.env.NODE_ENV == 'production' ) {
-        await loadSecrets()
-      }
       if (!process.env.JWT_SECRET) throw new Error('Undefined JWT_SECRET!')
       const { password, ...userData } = req.body
       const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: '1d' })

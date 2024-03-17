@@ -29,4 +29,3 @@ const config: { development: DatabaseConfig; production: DatabaseConfig } = {
 }
 
 module.exports = config;
-

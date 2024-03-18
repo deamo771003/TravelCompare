@@ -14,10 +14,10 @@ pipeline {
 
     post {
         success {
-            console.log('All pass')
+            echo 'All pass'
         }
         failure {
-            console.log('Test fale')
+            echo 'Test fale'
         }
     }
 }

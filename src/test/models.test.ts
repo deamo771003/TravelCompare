@@ -23,7 +23,6 @@ describe('User model', () => {
     } catch (error) {
       console.error('Error during Sequelize initialization:', error)
     }
-    
   })
 
   afterAll(async () => {

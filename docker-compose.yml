@@ -26,7 +26,6 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
     environment:
-      - PORT=8080
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     restart: on-failure
 

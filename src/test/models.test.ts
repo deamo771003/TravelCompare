@@ -43,5 +43,6 @@ describe('User model', () => {
     expect(user.name).toEqual(userData.name)
     expect(user.password).toEqual(userData.password)
     expect(user.admin).toEqual(userData.admin)
+    console.log('all test ok')
   })
 })

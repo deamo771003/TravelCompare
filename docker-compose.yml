@@ -16,8 +16,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/ssl/travelcompare.store.pem:/etc/ssl/travelcompare.store.pem
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
-    depends_on:
-      - app
+    restart: on-failure
 
   jenkins:
     image: jenkins/jenkins:lts
@@ -29,8 +28,7 @@ services:
     environment:
       - PORT=8080
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-    depends_on:
-      - nginx
+    restart: on-failure
 
 volumes:
   jenkins_home:

@@ -8,6 +8,8 @@ pipeline {
     stages {
         stage('Install') {
             steps {
+                sh 'git init'
+                sh 'npm init -y'
                 sh 'npm install'
             }
         }

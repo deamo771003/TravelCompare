@@ -16,16 +16,5 @@ services:
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
     restart: on-failure
 
-  jenkins:
-    image: jenkins/jenkins:lts
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    volumes:
-      - jenkins_home:/var/jenkins_home
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-    restart: on-failure
-
 volumes:
   jenkins_home:

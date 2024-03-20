@@ -1,15 +1,10 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJs'
-    }
-
     stages {
-        stage('Install') {
+        stage('Build docker compose') {
             steps {
-                sh 'npm config delete proxy'
-                sh 'npm install'
+                sh 'sudo docker-compose up -d'
             }
         }
 

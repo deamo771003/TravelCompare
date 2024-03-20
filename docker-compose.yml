@@ -16,4 +16,3 @@ services:
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
     depends_on:
       - app
-

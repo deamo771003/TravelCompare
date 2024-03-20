@@ -7,9 +7,11 @@ pipeline {
 
     stages {
         stage('Install') {
+            steps {
                 sh 'npm config delete proxy'
                 sh 'npm install'
             }
+        }
 
         stage('Test') {
             steps {

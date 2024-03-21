@@ -17,7 +17,7 @@ async function startApp(): Promise<void> {
   // Swagger UI
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
   app.use(cors({
-    origin: ['https://huang-bai.github.io/TravelCompare', 'http://localhost:3000'],
+    origin: ['https://huang-bai.github.io', 'http://localhost:3000'],
     credentials: true
   }))
 

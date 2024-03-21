@@ -30,7 +30,7 @@ function startApp() {
         // Swagger UI
         app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
         app.use((0, cors_1.default)({
-            origin: ['https://huang-bai.github.io/TravelCompare', 'http://localhost:3000'],
+            origin: ['https://huang-bai.github.io', 'http://localhost:3000'],
             credentials: true
         }));
         if (!process.env.SESSION_SECRET) {

@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Build docker compose') {
             steps {
-                sh 'docker-compose up -d'
-                sh 'sleep 5'
+                sh 'docker compose up -d --wait'
             }
         }
 

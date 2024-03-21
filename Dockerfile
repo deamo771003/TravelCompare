@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install -g npm@latest && npm install --production
+RUN npm install
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

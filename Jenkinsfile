@@ -1,12 +1,9 @@
 pipeline {
     agent any
-    tools {
-        docker 'Docker'
-    }
     stages {
         stage('Build docker compose') {
             steps {
-                sh 'docker compose up -d --wait'
+                sh 'docker-compose up -d'
             }
         }
 

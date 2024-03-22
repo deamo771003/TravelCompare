@@ -5,6 +5,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=80
+    mem_limit: 550M
+    cpus: 0.7
 
   nginx:
     image: nginx:latest

@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm config set registry https://registry.npmjs.org
 RUN npm config set cache /path/to/npm/cache --global
-RUN npm install --production
+RUN npm install --omit=dev
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry https://registry.npmjs.org
 RUN npm config set cache /path/to/npm/cache --global
 RUN npm install --production
 

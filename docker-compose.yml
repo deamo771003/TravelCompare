@@ -1,13 +1,10 @@
 version: '3'
 services:
   app:
-    network_mode: "host"
     build: .
     environment:
       - NODE_ENV=production
       - PORT=80
-    volumes:
-      - npm-cache:/tmp/npm-cache
     mem_limit: 550M
     cpus: 0.7
 
@@ -21,6 +18,3 @@ services:
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
     depends_on:
       - app
-
-volumes:
-  npm-cache:

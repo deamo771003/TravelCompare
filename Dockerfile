@@ -3,7 +3,7 @@ FROM node:18
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
-COPY package.json package-lock.json ./
+COPY package*.json package-lock.json ./
 RUN npm config set registry https://registry.npmjs.org
 RUN npm config set cache /tmp/npm-cache --global
 RUN npm install

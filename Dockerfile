@@ -20,8 +20,7 @@ COPY package*.json package-lock.json ./
 # RUN npm install faker
 # RUN npm install jsonwebtoken
 # RUN npm install --production
-RUN npm config set legacy-peer-deps=true --location=project
-RUN npm ci --legacy-peer-deps
+RUN npm install --force --production
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

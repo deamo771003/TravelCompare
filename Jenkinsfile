@@ -6,6 +6,15 @@ pipeline {
     }
     
     stages {
+        stage('Network Test') {
+            steps {
+                script {
+                    def output = sh script: 'ping -c 4 google.com', returnStdout: true
+                    println(output)
+                }
+            }
+        }
+
         stage('Build docker compose') {
             steps {
                 sh 'docker-compose up --build -d --wait'

@@ -5,19 +5,19 @@ WORKDIR /usr/src/app
 # Copy package files and install dependencies
 COPY package*.json package-lock.json ./
 RUN npm config set cache /tmp/npm-cache --global
-RUN npm express install
-RUN npm express-session install
-RUN npm jest install
-RUN npm prettier install
-RUN npm prettier-eslint install
-RUN npm sqlite3 install
-RUN npm bcrypt install
-RUN npm connect-flash install
-RUN npm cors install
-RUN npm core-js install
-RUN npm dotenv install
-RUN npm faker install
-RUN npm jsonwebtoken install
+RUN npm install express
+RUN npm install express-session
+RUN npm install jest
+RUN npm install prettier
+RUN npm install prettier-eslint
+RUN npm install sqlite3
+RUN npm install bcrypt
+RUN npm install connect-flash
+RUN npm install cors
+RUN npm install core-js
+RUN npm install dotenv
+RUN npm install faker
+RUN npm install jsonwebtoken
 RUN npm install
 
 # Install jq, aws-cli, and other dependencies

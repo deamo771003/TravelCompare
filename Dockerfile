@@ -19,7 +19,7 @@ COPY package*.json package-lock.json ./
 # RUN npm install dotenv
 # RUN npm install faker
 # RUN npm install jsonwebtoken
-RUN npm install
+RUN npm install --production
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

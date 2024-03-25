@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 # Copy package files and install dependencies
 
 # RUN npm config set cache /tmp/npm-cache --global
-COPY package*.json package-lock.json ./
+COPY package*.json ./
 # RUN npm install express
 # RUN npm install express-session
 # RUN npm install jest
@@ -20,7 +20,8 @@ COPY package*.json package-lock.json ./
 # RUN npm install faker
 # RUN npm install jsonwebtoken
 # RUN npm install --production
-RUN npm install -g npm@latest && npm install --omit=dev
+RUN npm install -g npm@latest
+RUN npm install --omit=dev
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

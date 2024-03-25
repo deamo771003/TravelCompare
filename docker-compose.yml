@@ -9,6 +9,8 @@ services:
       - PORT=80
     # volumes:
     #   - /tmp/npm-cache:/tmp/npm-cache
+    ports:
+      - "80:80"
     mem_limit: 550M
     cpus: 0.7
 

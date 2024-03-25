@@ -20,7 +20,7 @@ COPY package*.json package-lock.json ./
 # RUN npm install faker
 # RUN npm install jsonwebtoken
 # RUN npm install --production
-RUN npm install --omit=dev
+RUN npm install -g npm@latest && npm install --omit=dev
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && \

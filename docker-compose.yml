@@ -2,13 +2,13 @@ version: '3'
 services:
   app:
     network_mode: "host"
-    user: root
+    # user: root
     build: .
     environment:
       - NODE_ENV=production
       - PORT=80
-    volumes:
-      - /tmp/npm-cache:/tmp/npm-cache
+    # volumes:
+    #   - /tmp/npm-cache:/tmp/npm-cache
     mem_limit: 550M
     cpus: 0.7
 

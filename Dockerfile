@@ -3,8 +3,8 @@ FROM node:20
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
-RUN mkdir -p /tmp/npm-cache && chmod -R 777 /tmp/npm-cache
-RUN npm config set cache /tmp/npm-cache --global
+
+# RUN npm config set cache /tmp/npm-cache --global
 COPY package*.json package-lock.json ./
 # RUN npm install express
 # RUN npm install express-session

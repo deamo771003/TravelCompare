@@ -1,11 +1,23 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json package-lock.json ./
-RUN npm config set registry https://registry.npmjs.org
 RUN npm config set cache /tmp/npm-cache --global
+RUN npm express
+RUN npm express-session
+RUN npm jest
+RUN npm prettier
+RUN npm prettier-eslint
+RUN npm sqlite3
+RUN npm bcrypt
+RUN npm connect-flash
+RUN npm cors
+RUN npm core-js
+RUN npm dotenv
+RUN npm faker
+RUN npm jsonwebtoken
 RUN npm install
 
 # Install jq, aws-cli, and other dependencies

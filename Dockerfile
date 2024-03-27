@@ -21,7 +21,7 @@ COPY package*.json ./
 # RUN npm install jsonwebtoken
 # RUN npm install --production
 RUN npm install -g npm@latest
-RUN npm install --omit=dev
+RUN npm ci
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update

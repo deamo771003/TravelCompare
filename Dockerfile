@@ -20,6 +20,8 @@ COPY package*.json ./
 # RUN npm install faker
 # RUN npm install jsonwebtoken
 # RUN npm install --production
+RUN apt-get update && apt-get install -y iputils-ping
+RUN ping -c 4 google.com
 RUN npm install -g npm@latest
 RUN npm ci
 

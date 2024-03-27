@@ -20,7 +20,6 @@ COPY package*.json ./
 # RUN npm install faker
 # RUN npm install jsonwebtoken
 # RUN npm install --production
-RUN npm cache clean --force
 RUN npm install -g npm@latest
 RUN npm install -g
 

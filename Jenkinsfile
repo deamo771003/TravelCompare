@@ -14,7 +14,8 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'bash -c "npm run test"'
+                sh 'docker images'
+                sh 'npm run test'
             }
         }
     }

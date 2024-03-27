@@ -9,12 +9,12 @@ pipeline {
         stage('Build docker') {
             steps {
                 sh 'docker-compose up -d app'
-                sh 'npm install -g'
             }
         }
 
         stage('Test') {
             steps {
+                sh 'pwd'
                 sh 'npm test'
             }
         }

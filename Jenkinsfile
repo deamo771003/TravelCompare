@@ -14,9 +14,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh 'pwd'
-                sh 'ls'
-                sh 'npm test'
+                sh 'npm run test'
             }
         }
     }

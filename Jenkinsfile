@@ -9,6 +9,7 @@ pipeline {
         stage('Build docker') {
             steps {
                 sh 'docker-compose up -d app'
+                sh 'npm install -g resolve-cwd'
             }
         }
 

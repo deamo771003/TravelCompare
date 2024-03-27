@@ -4,7 +4,8 @@ pipeline {
     tools {
         nodejs 'NodeJS'
     }
-
+    
+    stages {
         stage('Build docker') {
             steps {
                 sh 'docker-compose up -d app'

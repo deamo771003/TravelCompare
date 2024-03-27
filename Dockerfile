@@ -23,7 +23,7 @@ COPY package*.json ./
 RUN apt-get update && apt-get install -y iputils-ping
 RUN ping -c 4 google.com
 RUN npm install -g npm@latest
-RUN npm ci -g server
+RUN npm install -g
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update

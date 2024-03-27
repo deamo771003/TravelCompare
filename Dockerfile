@@ -23,9 +23,6 @@ COPY package*.json ./
 RUN npm install -g npm@latest
 RUN npm install -g
 
-# Install bash
-RUN apt-get update && apt-get install -y bash && rm -rf /var/lib/apt/lists/*
-
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update
 RUN apt-get install -y curl gnupg2 jq less groff

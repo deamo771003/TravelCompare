@@ -11,11 +11,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'docker images'
-                script {
-                    docker.image('tc3_app').inside {
-                        sh 'npm run test'
-                    }
-                }
+                sh 'docker exec tc3_app npm run test'
             }
         }
     }

@@ -4,17 +4,6 @@ pipeline {
     tools {
         nodejs 'NodeJS'
     }
-    
-    stages {
-        stage('Network Test') {
-            steps {
-                sh 'apt-get update && apt-get install -y iputils-ping'
-                script {
-                    def output = sh script: 'ping -c 4 google.com', returnStdout: true
-                    println(output)
-                }
-            }
-        }
 
         stage('Build docker') {
             steps {

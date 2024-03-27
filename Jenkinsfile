@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh 'docker images'
                 script {
-                    docker.image('tc3_app:latest').inside {
+                    docker.image('tc3_app').inside {
                         sh 'npm run test'
                     }
                 }

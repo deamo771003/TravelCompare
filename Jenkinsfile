@@ -17,7 +17,8 @@ pipeline {
                 sh 'docker images'
                 script {
                     docker.image('tc3_app:latest').inside {
-                    sh 'npm run test'
+                        sh 'npm run test'
+                    }
                 }
             }
         }

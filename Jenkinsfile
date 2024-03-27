@@ -16,7 +16,7 @@ pipeline {
             }
         }
 
-        stage('Build docker compose') {
+        stage('Build docker') {
             steps {
                 sh 'docker-compose up --build -d --wait'
             }

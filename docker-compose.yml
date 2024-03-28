@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    network_mode: "host"
+    network_mode: "tc_network"
     build: .
     environment:
       - NODE_ENV=production
@@ -10,6 +10,9 @@ services:
       - "80:80"
     mem_limit: 550M
     cpus: 0.7
+    networks:
+      - default
+      - external_net
 
   nginx:
     image: nginx:latest
@@ -21,4 +24,11 @@ services:
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
     depends_on:
       - app
+
+networks:
+default:
+  driver: bridge
+external_net:
+  external:
+    name: tc_network
 

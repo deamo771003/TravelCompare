@@ -2,6 +2,14 @@ pipeline {
     agent any
     
     stages {
+        stage('Build Docker Network') {
+          steps {
+            script {
+              sh 'docker network create tc_network'
+              sh 'docker network ls | grep tc_network'
+            }
+          }
+        }
         stage('Build docker') {
             steps {
                 sh 'docker-compose build --no-cache'
@@ -9,7 +17,6 @@ pipeline {
                 sh 'docker-compose logs'
             }
         }
-
         stage('Test') {
             steps {
                 sh 'docker ps'
@@ -17,7 +24,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Tests passed successfully!'

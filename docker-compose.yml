@@ -12,7 +12,7 @@ services:
     cpus: 0.7
     networks:
       - default
-      - external_net
+      - tc_network
 
   nginx:
     image: nginx:latest
@@ -26,9 +26,8 @@ services:
       - app
 
 networks:
-default:
-  driver: bridge
-external_net:
-  external:
-    name: tc_network
+  default:
+    driver: bridge
+  tc_network:
+    external: true
 

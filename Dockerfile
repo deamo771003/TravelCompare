@@ -2,17 +2,16 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
-RUN npm install -g npm@latest
 COPY package*.json ./
-RUN npm install -g --omit=dev
+RUN npm install -g npm@latest && npm install --production
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \
   && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
   && unzip awscliv2.zip \
   && ./aws/install \
-  && curl --http1.1 https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-  && curl --http1.1  https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+  && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+  && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
   && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools unixodbc-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* awscliv2.zip

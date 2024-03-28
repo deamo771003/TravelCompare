@@ -34,6 +34,9 @@ pipeline {
         always {
             sh 'docker-compose down -v'
             sh 'docker rmi $(docker images -q) -f'
+            sh 'docker network rm tc_network'
+            sh 'docker image prune -f || true'
+            sh 'docker volume prune -f || true'
             echo 'Docker compose down executed.'
         }
     }

@@ -25,9 +25,3 @@ services:
     depends_on:
       - app
 
-networks:
-  default:
-    driver: bridge
-  tc_network:
-    external: true
-

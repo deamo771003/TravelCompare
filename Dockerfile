@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* awscliv2.zip
 
-
 # Make sure to add /opt/mssql-tools/bin to PATH for sqlcmd
 ENV PATH="$PATH:/opt/mssql-tools/bin"
 

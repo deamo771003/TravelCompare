@@ -1,9 +1,9 @@
-FROM node:20
+FROM node:20-buster
 USER root
 WORKDIR /usr/src/app
 
-COPY package*.json ./
 RUN npm install -g npm@latest
+COPY package*.json ./
 RUN npm install -g
 
 # Install jq, aws-cli, and other dependencies

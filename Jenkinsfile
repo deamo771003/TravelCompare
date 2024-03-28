@@ -12,15 +12,20 @@ pipeline {
         }
         stage('Build docker') {
             steps {
-                sh 'docker-compose build --no-cache'
-                sh 'docker-compose up -d app'
-                sh 'docker-compose logs'
+                sh 'docker build -t tc-image .'
+                sh 'docker ps | grep tc-image'
+            }
+        }
+        stage('Start App Container') {
+            steps {
+                sh 'docker run -it -d -p 3000:3000 --env-file /etc/jenkins/.env --name tc-container --network tc_network tc-image /bin/sh'
+                sh 'docker ps | grep tc-container'
             }
         }
         stage('Test') {
             steps {
                 sh 'docker ps'
-                sh 'docker exec tc_app-1 npm run test'
+                sh 'docker exec tc-container npm run test'
             }
         }
     }
@@ -32,8 +37,9 @@ pipeline {
             echo 'Tests failed.'
         }
         always {
-            sh 'docker-compose down -v'
-            sh 'docker rmi $(docker images -q) -f'
+            sh 'docker stop tc-container || true'
+            sh 'docker rm tc-container || true'
+            sh 'docker rmi tc-image || true'
             sh 'docker network rm tc_network'
             sh 'docker image prune -f || true'
             sh 'docker volume prune -f || true'

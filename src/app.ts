@@ -1,9 +1,5 @@
-if (process.env.NODE_ENV === 'production') {
-  import('dotenv').then(dotenv => {
-    dotenv.config()
-  })
-}
-
+import dotenv from 'dotenv'
+dotenv.config()
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import session from 'express-session'

@@ -5,13 +5,13 @@ pipeline {
         stage('Build docker') {
             steps {
                 sh 'docker-compose up --build -d app'
+                sh 'docker-compose logs'
             }
         }
 
         stage('Test') {
             steps {
                 sh 'docker ps'
-                sh 'docker logs tc_app-1'
                 sh 'docker exec tc_app-1 npm run test'
             }
         }

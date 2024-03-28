@@ -2,24 +2,7 @@ FROM node:20
 USER root
 WORKDIR /usr/src/app
 
-# Copy package files and install dependencies
-
-# RUN npm config set cache /tmp/npm-cache --global
 COPY package*.json ./
-# RUN npm install express
-# RUN npm install express-session
-# RUN npm install jest
-# RUN npm install prettier
-# RUN npm install prettier-eslint
-# RUN npm install sqlite3
-# RUN npm install bcrypt
-# RUN npm install connect-flash
-# RUN npm install cors
-# RUN npm install core-js
-# RUN npm install dotenv
-# RUN npm install faker
-# RUN npm install jsonwebtoken
-# RUN npm install --production
 RUN npm install -g npm@latest
 RUN npm install -g
 

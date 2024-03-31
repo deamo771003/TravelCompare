@@ -2,9 +2,9 @@ FROM node:20
 
 WORKDIR /usr/src/app
 
+RUN npm cache clean --force
 COPY package*.json ./
-RUN npm fund
-RUN npm install -g npm@latest && npm install --omit=dev
+RUN npm install -g npm@latest && npm install --loglevel verbose --omit=dev
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \

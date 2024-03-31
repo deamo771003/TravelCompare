@@ -5,7 +5,6 @@ pipeline {
         stage('Build Docker Network') {
           steps {
             script {
-                sh 'docker network rm tc_network'
                 sh 'docker network create tc_network'
                 sh 'docker network ls | grep tc_network'
             }

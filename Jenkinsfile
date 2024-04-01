@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Start App Container') {
             steps {
-                sh 'docker run -it -d -p 80:80 --env-file /etc/jenkins/.env --name tc-container --network tc_network tc-image /bin/sh'
+                sh 'docker run -d -p 80:80 --env-file /etc/jenkins/.env --name tc-container --network tc_network tc-image'
                 sh 'docker ps | grep tc-container'
             }
         }

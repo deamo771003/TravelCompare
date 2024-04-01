@@ -1,10 +1,11 @@
-FROM node:20
+FROM node:20.11.0-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /src/app
 
 RUN npm cache clean --force
-COPY package*.json ./
-RUN npm install -g npm@latest && npm install --loglevel verbose --omit=dev
+COPY package.json package-lock.json ./
+RUN npm install -g npm@latest --loglevel verbose
+RUN npm install --production
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \
@@ -28,4 +29,3 @@ EXPOSE 80
 
 # Keep your CMD instruction to run the application
 CMD [ "node", "dist/app.js" ]
-

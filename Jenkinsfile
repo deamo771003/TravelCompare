@@ -13,7 +13,7 @@ pipeline {
         stage('Build docker') {
             steps {
                 sh 'docker build -t tc-image .'
-                sh 'docker ps | grep tc-image'
+                // sh 'docker ps | grep tc-image'
             }
         }
         stage('Start App Container') {

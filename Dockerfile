@@ -2,10 +2,8 @@ FROM node:20.11.0-alpine
 
 WORKDIR /src/app
 
-RUN npm cache clean --force
-COPY package.json package-lock.json ./
-RUN npm install -g npm@latest --loglevel verbose
-RUN npm install --production
+COPY package.*json ./
+RUN npm install -g npm@latest && npm install --production
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \

@@ -3,14 +3,14 @@ FROM node:18
 WORKDIR /src/app
 
 COPY package.*json ./
-RUN npm install -g npm@latest && npm install --omit=dev
+RUN npm install -g npm@latest && npm install
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \
-  && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-  && unzip awscliv2.zip \
-  && ./aws/install \
-  && rm -rf awscliv2.zip \
+  # && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+  # && unzip awscliv2.zip \
+  # && ./aws/install \
+  # && rm -rf awscliv2.zip \
   # Use the updated method for adding the Microsoft repository
   && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > /etc/apt/trusted.gpg.d/microsoft.gpg \
   && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \

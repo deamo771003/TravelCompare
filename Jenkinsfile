@@ -43,7 +43,7 @@ pipeline {
             sh 'docker rmi tc-image || true'
             sh 'docker network rm tc_network'
             sh 'docker image prune -f || true'
-            sh 'docker image system -f || true'
+            sh 'docker system prune -f || true'
             echo 'Docker compose down executed.'
         }
     }

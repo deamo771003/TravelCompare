@@ -3,12 +3,16 @@ pipeline {
     
     stages {
         stage('Build Docker Network') {
-          steps {
-            script {
-                sh 'docker network create tc_network'
-                sh 'docker network ls | grep tc_network'
+            steps {
+                script {
+                    def networkExists = sh(script: "docker network ls | grep tc_network", returnStatus: true)
+                    if (networkExists != 0) {
+                        sh 'docker network create tc_network'
+                    } else {
+                        echo 'Network tc_network already exists'
+                    }
+                }
             }
-          }
         }
         stage('Build docker') {
             steps {
@@ -18,13 +22,11 @@ pipeline {
         stage('Start App Container') {
             steps {
                 sh 'docker run -d -p 3000:3000 --env-file /var/jenkins/.env --name tc-container --network tc_network tc-image'
-                sh 'docker ps | grep tc-container'
             }
         }
         stage('Test') {
             steps {
-                sh 'docker ps'
-                sh 'docker exec -it tc-container npm run test sh'
+                sh 'docker exec tc-container npm run test'
             }
         }
     }

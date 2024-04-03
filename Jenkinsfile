@@ -1,6 +1,10 @@
 pipeline {
     agent any
     
+    environment {
+        GITHUB_TOKEN = credentials('deamo771003')
+    }
+
     stages {
         stage('Build Docker Network') {
             steps {
@@ -32,7 +36,16 @@ pipeline {
     }
     post {
         success {
-            echo 'Tests passed successfully!'
+            script {
+                echo 'Tests passed successfully!'
+                def repoOwner = 'deamo771003'
+                def repoName = 'TravelCompare'
+                sh """
+                curl -X PUT -H "Authorization: token ${GITHUB_TOKEN}" \\
+                "https://api.github.com/repos/${repoOwner}/${repoName}/pulls/${env.PR_NUMBER}/merge" \\
+                -d '{"commit_title":"Merge via Jenkins CI","commit_message":"All tests passed.","merge_method":"merge"}'
+                """
+            }
         }
         failure {
             echo 'Tests failed.'

@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        GITHUB_TOKEN = credentials('deamo771003')
+        GITHUB_TOKEN = credentials('b45098ac-ef8b-4ca2-a493-a89b903b10c3')
     }
 
     stages {
@@ -37,14 +37,21 @@ pipeline {
     post {
         success {
             script {
-                echo 'Tests passed successfully!'
-                def repoOwner = 'deamo771003'
-                def repoName = 'TravelCompare'
-                sh """
-                curl -X PUT -H "Authorization: token ${GITHUB_TOKEN}" \\
-                "https://api.github.com/repos/${repoOwner}/${repoName}/pulls/${env.PR_NUMBER}/merge" \\
-                -d '{"commit_title":"Merge via Jenkins CI","commit_message":"All tests passed.","merge_method":"merge"}'
-                """
+                def prNumber = env.ghprbPullId
+                if (prNumber) {
+                    echo "Merging PR number: ${prNumber}"
+                    def repoOwner = 'deamo771003'
+                    def repoName = 'TravelCompare'
+                    withCredentials([string(credentialsId: 'b45098ac-ef8b-4ca2-a493-a89b903b10c3', variable: 'TOKEN')]) {
+                        sh """
+                        curl -X PUT -H "Authorization: token $TOKEN" \
+                        "https://api.github.com/repos/${repoOwner}/${repoName}/pulls/${prNumber}/merge" \
+                        -d '{"commit_title":"Merge via Jenkins CI","commit_message":"All tests passed.","merge_method":"merge"}'
+                        """
+                    }
+                } else {
+                    echo "PR number is not available, skipping merge."
+                }
             }
         }
         failure {

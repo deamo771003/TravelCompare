@@ -30,30 +30,26 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'docker exec tc-container npm run test'
+                 script {
+                    try {
+                        sh 'docker exec tc-container npm run test'
+                        currentBuild.result = 'SUCCESS'
+                    } catch (Exception e) {
+                        currentBuild.result = 'FAILURE'
+                        throw e
+                    }
+                }
             }
         }
     }
     post {
         success {
-            script {
-                def prNumber = env.ghprbPullId
-                if (prNumber) {
-                    echo "Merging PR number: ${prNumber}"
-                    def repoOwner = 'deamo771003'
-                    def repoName = 'TravelCompare'
-                    withCredentials([string(credentialsId: 'b45098ac-ef8b-4ca2-a493-a89b903b10c3', variable: 'TOKEN')]) {
-                        sh 'curl -X PUT -H "Authorization: token $TOKEN" \
-                        "https://api.github.com/repos/${repoOwner}/${repoName}/pulls/${prNumber}/merge" \
-                        -d '{"commit_title":"Merge via Jenkins CI","commit_message":"All tests passed.","merge_method":"merge"}''
-                    }
-                } else {
-                    echo "PR number is not available, skipping merge."
-                }
-            }
+            echo 'Tests success.'
+            updateGitHubStatus('success', 'Tests succeeded.')
         }
         failure {
             echo 'Tests failed.'
+            updateGitHubStatus('failure', 'Tests failed.')
         }
         always {
             sh 'docker stop tc-container || true'

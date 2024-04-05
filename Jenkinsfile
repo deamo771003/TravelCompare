@@ -50,7 +50,7 @@ pipeline {
             sh """
                 curl -X POST -H 'Authorization: token ${GITHUB_TOKEN}' \\
                     -H 'Content-Type: application/json' \\
-                    -d '{\\"state\\": \\"success\\", \\"description\\": \\"Tests succeeded.\\", \\"context\\": \\"continuous-integration/jenkins\\"}' \\
+                    -d '{"state": "success", "description": "Tests succeeded.", "context": "continuous-integration/jenkins"}' \\
                     'https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}'
             """
         }
@@ -59,7 +59,7 @@ pipeline {
             sh """
                 curl -X POST -H 'Authorization: token ${GITHUB_TOKEN}' \\
                     -H 'Content-Type: application/json' \\
-                    -d '{\\"state\\": \\"failure\\", \\"description\\": \\"Tests failed.\\", \\"context\\": \\"continuous-integration/jenkins\\"}' \\
+                    -d '{"state": "failure", "description": "Tests failed.", "context": "continuous-integration/jenkins"}' \\
                     'https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}'
             """
         }

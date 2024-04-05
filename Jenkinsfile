@@ -1,8 +1,10 @@
 pipeline {
     agent any
-    
+
     environment {
-        GITHUB_TOKEN = credentials('02483d93-55c5-4bed-943e-0e64585dc92a')
+        GITHUB_TOKEN = credentials('2bfd7c19-d0bf-4756-8c41-c0edced4b78d')
+        REPO_OWNER = 'deamo771003'
+        REPO_NAME = 'TravelCompare'
     }
 
     stages {
@@ -61,4 +63,27 @@ pipeline {
             echo 'Docker compose down executed.'
         }
     }
+}
+
+def updateGitHubStatus(String status, String description) {
+    // github 狀態更新數據
+    def statusData = [
+        state: status,
+        description: description,
+        context: "continuous-integration/jenkins"
+    ]
+
+    // 數據轉換成 json
+    def postData = new groovy.json.JsonBuilder(statusData).toString()
+
+    // 構建 GitHub API URL
+    def githubApiUrl = "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}"
+
+    // 使用curl命令發送 POST 請求到 GitHub API
+    sh """
+        curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
+        -H "Content-Type: application/json" \
+        -d '${postData}' \
+        "${githubApiUrl}"
+    """
 }

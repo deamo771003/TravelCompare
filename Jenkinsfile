@@ -46,12 +46,22 @@ pipeline {
     }
     post {
         success {
-            echo 'Tests success.'
-            updateGitHubStatus('success', 'Tests succeeded.')
+            echo 'Tests passed successfully!'
+            sh """
+                curl -X POST -H 'Authorization: token ${GITHUB_TOKEN}' \\
+                    -H 'Content-Type: application/json' \\
+                    -d '{\\"state\\": \\"success\\", \\"description\\": \\"Tests succeeded.\\", \\"context\\": \\"continuous-integration/jenkins\\"}' \\
+                    'https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}'
+            """
         }
         failure {
             echo 'Tests failed.'
-            updateGitHubStatus('failure', 'Tests failed.')
+            sh """
+                curl -X POST -H 'Authorization: token ${GITHUB_TOKEN}' \\
+                    -H 'Content-Type: application/json' \\
+                    -d '{\\"state\\": \\"failure\\", \\"description\\": \\"Tests failed.\\", \\"context\\": \\"continuous-integration/jenkins\\"}' \\
+                    'https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}'
+            """
         }
         always {
             sh 'docker stop tc-container || true'
@@ -63,27 +73,4 @@ pipeline {
             echo 'Docker compose down executed.'
         }
     }
-}
-
-def updateGitHubStatus(String status, String description) {
-    // github 狀態更新數據
-    def statusData = [
-        state: status,
-        description: description,
-        context: "continuous-integration/jenkins"
-    ]
-
-    // 數據轉換成 json
-    def postData = new groovy.json.JsonBuilder(statusData).toString()
-
-    // 構建 GitHub API URL
-    def githubApiUrl = "https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}"
-
-    // 使用curl命令發送 POST 請求到 GitHub API
-    sh """
-        curl -X POST -H "Authorization: token ${GITHUB_TOKEN}" \
-        -H "Content-Type: application/json" \
-        -d '${postData}' \
-        "${githubApiUrl}"
-    """
 }

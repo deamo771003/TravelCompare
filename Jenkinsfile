@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                 script {
+                script {
                     try {
                         sh 'docker exec tc-container npm run test'
                         currentBuild.result = 'SUCCESS'

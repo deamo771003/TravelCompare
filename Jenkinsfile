@@ -32,7 +32,6 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'docker exec tc-container npm config get cache'
                 script {
                     try {
                         sh 'docker exec tc-container npm run test'

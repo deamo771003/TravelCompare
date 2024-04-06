@@ -71,7 +71,7 @@ pipeline {
             sh 'docker image prune -f || true'
             sh 'docker system prune -f || true'
             echo 'Docker compose down executed.'
-            echo 'test branch push2.'
+            echo 'test branch push.'
         }
     }
 }

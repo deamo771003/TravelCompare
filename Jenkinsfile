@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Start App Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 --env-file /var/jenkins/.env -v /var/jenkins_home/.npm:/root/.npm --name tc-container --network tc_network tc-image'
+                sh 'docker run -d -p 3000:3000 --env-file /var/jenkins/.env -v /var/jenkins_home/.npm:/root/.npm --env NPM_CONFIG_CACHE=/root/.npm --name tc-container --network tc_network tc-image'
             }
         }
         stage('Test') {

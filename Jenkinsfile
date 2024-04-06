@@ -72,6 +72,7 @@ pipeline {
             sh 'docker image prune -f || true'
             sh 'docker system prune -f || true'
             echo 'Docker compose down executed.'
+            echo 'npm install test'
         }
     }
 }

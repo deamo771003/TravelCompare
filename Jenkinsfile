@@ -5,6 +5,7 @@ pipeline {
         GITHUB_TOKEN = credentials('2bfd7c19-d0bf-4756-8c41-c0edced4b78d')
         REPO_OWNER = 'deamo771003'
         REPO_NAME = 'TravelCompare'
+        SSH_CREDENTIALS_ID = 'bc3e53a2-ef66-4479-9f53-b485d5f118cc'
     }
 
     stages {
@@ -39,6 +40,26 @@ pipeline {
                     } catch (Exception e) {
                         currentBuild.result = 'FAILURE'
                         throw e
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            when {
+                branch 'master'
+            }
+            steps {
+                script {
+                    // 部署到 EC2 实例
+                    withCredentials([sshUserPrivateKey(credentialsId: SSH_CREDENTIALS_ID, keyFileVariable: 'SSH_KEY')]) {
+                        sh """
+                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ec2-user@52.194.44.47 <<EOF
+                            cd /path/to/your/app
+                            git pull origin master
+                            npm install
+                            pm2 restart all
+                            EOF
+                        """
                     }
                 }
             }

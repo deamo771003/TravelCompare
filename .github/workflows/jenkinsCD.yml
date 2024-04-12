@@ -1,0 +1,11 @@
+name: jenkinsCD
+on:
+  push:
+    branches: [ master ]
+jobs:
+  trigger-deployment:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
+    steps:
+      - name: Trigger Jenkins Deployment
+        run: curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }}

@@ -10,9 +10,6 @@ services:
       - "80:80"
     mem_limit: 550M
     cpus: 0.7
-    networks:
-      - default
-      - tc_network
 
   nginx:
     image: nginx:latest

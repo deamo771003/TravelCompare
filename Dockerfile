@@ -3,7 +3,8 @@ FROM node:18
 WORKDIR /usr/src/app
 
 COPY package.*json ./
-RUN npm install -g npm@latest && npm install --omit=dev
+RUN npm install -g npm@latest
+RUN npm install --omit=dev
 
 # Install jq, aws-cli, and other dependencies
 RUN apt-get update && apt-get install -y curl gnupg2 jq less groff \

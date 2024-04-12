@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('2bfd7c19-d0bf-4756-8c41-c0edced4b78d')
+        GITHUB_TOKEN = credentials('7d8640f0-77ab-4dcb-a2ea-10e508ae9749')
         REPO_OWNER = 'deamo771003'
         REPO_NAME = 'TravelCompare'
     }

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_TOKEN = credentials('afd65f64-e7ae-4b7b-9110-f19defa4762b')
+        GITHUB_TOKEN = credentials('7d8640f0-77ab-4dcb-a2ea-10e508ae9749')
         REPO_OWNER = 'deamo771003'
         REPO_NAME = 'TravelCompare'
     }
@@ -43,6 +43,19 @@ pipeline {
                 }
             }
         }
+        stage('Cleanup') {
+            steps {
+                script {
+                    sh 'docker stop tc-container || true'
+                    sh 'docker rm tc-container || true'
+                    sh 'docker rmi tc-image || true'
+                    sh 'docker network rm tc_network'
+                    sh 'docker image prune -f || true'
+                    sh 'docker system prune -f || true'
+                    echo 'Docker compose down executed.'
+                }
+            }
+        }
     }
     post {
         success {
@@ -62,15 +75,6 @@ pipeline {
                     -d '{"state": "failure", "description": "Tests failed.", "context": "continuous-integration/jenkins"}' \\
                     'https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/statuses/${env.GIT_COMMIT}'
             """
-        }
-        always {
-            sh 'docker stop tc-container || true'
-            sh 'docker rm tc-container || true'
-            sh 'docker rmi tc-image || true'
-            sh 'docker network rm tc_network'
-            sh 'docker image prune -f || true'
-            sh 'docker system prune -f || true'
-            echo 'Docker compose down executed.'
         }
     }
 }

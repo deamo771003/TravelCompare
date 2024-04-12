@@ -1,11 +1,22 @@
-name: jenkinsCD
+name: Trigger Jenkins on PR Merge
+
 on:
-  push:
-    branches: [ master ]
+  pull_request_target:
+    types: [closed]
+    branches: [master]
+
 jobs:
-  trigger-deployment:
+  check-if-merged:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && github.ref == 'refs/heads/master'
     steps:
+      - name: Check if merged
+        id: check-merge
+        run: |
+          isMerged=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
+            | jq '.merged')
+          echo "isMerged=$isMerged" >> $GITHUB_ENV
       - name: Trigger Jenkins Deployment
-        run: curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }}
+        if: env.isMerged == 'true'
+        run: |
+          curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }}

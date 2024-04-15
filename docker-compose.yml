@@ -7,6 +7,8 @@ services:
       - PORT=80
     ports:
       - "80:80"
+    mem_limit: 900M
+    cpus: 0.9
 
   nginx:
     image: nginx:latest

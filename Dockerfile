@@ -1,9 +1,9 @@
 FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /src/app
 
 COPY package.*json ./
-# RUN npm install -g npm@latest
+RUN npm install -g npm@latest
 RUN npm install --omit=dev
 
 # Install jq, aws-cli, and other dependencies

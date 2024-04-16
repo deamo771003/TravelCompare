@@ -7,7 +7,7 @@ services:
       - PORT=80
     ports:
       - "80:80"
-    mem_limit: 900M
+    mem_limit: 950M
     cpus: 0.9
 
   nginx:

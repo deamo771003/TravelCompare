@@ -8,8 +8,6 @@ on:
 jobs:
   check-if-merged:
     runs-on: ubuntu-latest
-    outputs:
-      merged: ${{ steps.check-merge.outputs.merged }}
     steps:
       - name: Check if merged
         id: check-merge
@@ -18,10 +16,13 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
             | jq -r '.merged')
           echo "isMerged=$isMerged"
-          echo "merged=$isMerged" >> $GITHUB_ENV
-          echo "::set-output name=merged::$isMerged"
+          if [ "$isMerged" = "true" ]; then
+            echo "MERGED=true" >> $GITHUB_ENV
+          else
+            echo "MERGED=false" >> $GITHUB_ENV
+          fi
       - name: Trigger Jenkins Deployment
-        if: ${{ needs.check-if-merged.outputs.merged == 'true' }}
+        if: ${{ env.MERGED == 'true' }}
         run: |
           response=$(curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }})
           echo "Response from Jenkins: $response"

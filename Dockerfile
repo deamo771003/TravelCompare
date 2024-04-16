@@ -2,6 +2,9 @@ FROM node:20.11.0-alpine
 
 WORKDIR /src/app
 
+RUN apk add --no-cache curl
+RUN curl -s https://google.com > /dev/null || echo "網路不可用" && exit 1
+
 COPY package.json package-lock.json ./
 RUN npm install -g npm@latest && npm install --production
 

@@ -23,4 +23,5 @@ jobs:
       - name: Trigger Jenkins Deployment
         if: ${{ needs.check-if-merged.outputs.merged == 'true' }}
         run: |
-          curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }}
+          response=$(curl -X POST ${{ secrets.JENKINS_TRIGGER_URL }})
+          echo "Response from Jenkins: $response"

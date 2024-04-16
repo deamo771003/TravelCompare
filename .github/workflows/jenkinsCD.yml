@@ -21,7 +21,6 @@ jobs:
           else
             echo "MERGED=false" >> $GITHUB_ENV
 
-      # 獲取 Jenkins Crumb
       - name: Get Jenkins Crumb
         if: ${{ env.MERGED == 'true' }}
         run: |
@@ -29,7 +28,6 @@ jobs:
           "${{ secrets.JENKINS_URL }}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
           echo "CRUMB=$crumb" >> $GITHUB_ENV
 
-      # 使用 Crumb 觸發 Jenkins Deployment
       - name: Trigger Jenkins Deployment
         if: ${{ env.MERGED == 'true' }}
         run: |

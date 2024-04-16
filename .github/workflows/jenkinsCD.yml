@@ -3,7 +3,8 @@ name: Trigger Jenkins on PR Merge
 on:
   pull_request_target:
     types: [closed]
-    branches: [master]
+    branches: 
+      - master
 
 jobs:
   check-if-merged:
@@ -13,23 +14,23 @@ jobs:
         id: check-merge
         run: |
           isMerged=$(curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }} \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.pull_request.number }}" \
             | jq -r '.merged')
-          echo "isMerged=$isMerged"
-          if [ "$isMerged" = "true" ]; then
+          echo "isMerged=${isMerged}"
+          if [[ "${isMerged}" == "true" ]]; then
             echo "MERGED=true" >> $GITHUB_ENV
           else
             echo "MERGED=false" >> $GITHUB_ENV
 
       - name: Get Jenkins Crumb
-        if: ${{ env.MERGED == 'true' }}
+        if: env.MERGED == 'true'
         run: |
-          crumb=$(curl -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }} \
+          crumb=$(curl -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }}" \
           "${{ secrets.JENKINS_URL }}/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)")
-          echo "CRUMB=$crumb" >> $GITHUB_ENV
+          echo "CRUMB=${crumb}" >> $GITHUB_ENV
 
       - name: Trigger Jenkins Deployment
-        if: ${{ env.MERGED == 'true' }}
+        if: env.MERGED == 'true'
         run: |
-          response=$(curl -X POST -H "${{ env.CRUMB }}" -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }} ${{ secrets.JENKINS_TRIGGER_URL }})
-          echo "Response from Jenkins: $response"
+          response=$(curl -X POST -H "${{ env.CRUMB }}" -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_API_TOKEN }}" "${{ secrets.JENKINS_TRIGGER_URL }}")
+          echo "Response from Jenkins: ${response}"

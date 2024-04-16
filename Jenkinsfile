@@ -5,6 +5,7 @@ pipeline {
         GITHUB_TOKEN = credentials('7d8640f0-77ab-4dcb-a2ea-10e508ae9749')
         REPO_OWNER = 'deamo771003'
         REPO_NAME = 'TravelCompare'
+        SSH_CREDENTIALS_ID = 'bc3e53a2-ef66-4479-9f53-b485d5f118cc'
     }
 
     stages {

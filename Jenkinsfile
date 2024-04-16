@@ -60,7 +60,7 @@ pipeline {
     post {
         success {
             echo 'Tests passed successfully!'
-            echo 'CD Test echo'
+            echo 'CD Test echo2'
             sh """
                 curl -X POST -H 'Authorization: token ${GITHUB_TOKEN}' \\
                     -H 'Content-Type: application/json' \\

@@ -1,8 +1,6 @@
 FROM node:18
 
-WORKDIR /src/app
-
-# RUN apk add --no-cache curl
+WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
 RUN npm install -g npm@latest && npm install --omit=dev

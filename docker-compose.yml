@@ -1,15 +1,5 @@
-version: '4'
+version: '3'
 services:
-  app:
-    build: .
-    environment:
-      - NODE_ENV=production
-      - PORT=80
-    ports:
-      - "8080:80"
-    mem_limit: 950M
-    cpus: 0.9
-
   nginx:
     image: nginx:latest
     ports:
@@ -19,5 +9,14 @@ services:
       - /etc/ssl/travelcompare.store.pem:/etc/ssl/travelcompare.store.pem
       - /etc/ssl/travelcompare.store.key:/etc/ssl/travelcompare.store.key
 
+  app:
+    build: .
+    environment:
+      - NODE_ENV=production
+      - PORT=80
+    ports:
+      - "8080:80"
+    mem_limit: 950M
+    cpus: 0.9
     depends_on:
-      - app
+      - nginx

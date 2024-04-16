@@ -1,8 +1,8 @@
-FROM node:20.11.0-alpine
+FROM node:18
 
 WORKDIR /src/app
 
-RUN apk add --no-cache curl
+# RUN apk add --no-cache curl
 
 COPY package.json package-lock.json ./
 RUN npm install -g npm@latest && npm install --omit=dev

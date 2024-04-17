@@ -3,8 +3,7 @@ name: Trigger Jenkins on PR Merge
 on:
   pull_request_target:
     types: [closed]
-    branches: 
-      - master
+    branches: [master]
 
 jobs:
   check-if-merged:
@@ -21,6 +20,7 @@ jobs:
             echo "MERGED=true" >> $GITHUB_ENV
           else
             echo "MERGED=false" >> $GITHUB_ENV
+          fi
 
       - name: Get Jenkins Crumb
         if: env.MERGED == 'true'
